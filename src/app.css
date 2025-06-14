@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Gloock&family=Instrument+Serif:ital@0;1&family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Young+Serif&display=swap');
+@import url('fonts.css');
+@import 'tailwindcss';
+
+:root {
+  --primary: #201811;
+  --secondary: #140f0b;
+  --tertiary: #e7d2b5;
+  --tertiary-semi: #837665;
+  --tertiary-border: #61584b;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 200,
+  'GRAD' 0,
+  'opsz' 48
+}
+
+* {
+  font-family: "Inter Tight", sans-serif;
+  font-weight: 300;
+}
