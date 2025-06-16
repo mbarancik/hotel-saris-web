@@ -429,11 +429,12 @@
   }
 
   .gallery {
-    display: grid;
     gap: 1rem;
     height: 100%;
     max-height: 80vh;
     position: relative;
+    width: fit-content;
+    justify-self: center;
   }
 
   .gallery::before {
@@ -451,7 +452,9 @@
 
   article:nth-child(even) .gallery::before {
     left: unset;
-    right: -15%;
+    right: -5%;
+    width: 15vh;
+    height: 15vh;
   }
 
   .gallery::after {
@@ -469,24 +472,25 @@
 
   article:nth-child(even) .gallery::after {
     right: unset;
-    left: -5%;
+    left: -15%;
+    width: 25vh;
+    height: 25vh;
   }
 
   .gallery button {
-    width: 100%;
     height: 100%;
+    width: fit-content;
     padding: 0;
     border: none;
     background: none;
     cursor: pointer;
     overflow: hidden;
-
     transition: transform 0.15s ease, box-shadow 0.15s ease;
   }
 
   .gallery img {
-    width: 100%;
     height: 100%;
+    width: 100%;
     object-fit: cover;
     object-position: center;
     cursor: pointer;
@@ -498,11 +502,13 @@
     box-shadow: 0 0 2rem #61584b20;
   }
 
-  /* Single image */
-  .gallery:has(img:only-child),
-  .gallery:has(button:only-child) {
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr;
+  /* Multiple images */
+  .gallery:has(button:nth-child(n+2)) {
+    display: grid;
+  }
+
+  .gallery:has(button:nth-child(n+2)) button {
+    width: 100%;
   }
 
   /* Two images */

@@ -1,6 +1,15 @@
 <script lang="ts">
+	import { onMount } from "svelte";
   import "svelte/transition";
   let { imgUrl, close } = $props();
+
+  onMount(() => {
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        close();
+      }
+    });
+  })
 </script>
 
 <div class="backdrop">
@@ -33,8 +42,9 @@
 
   .close-button {
     position: absolute;
-    top: 1rem;
-    right: 1rem;
+    top: 0;
+    right: 0;
+    margin: 1rem;
     background: var(--tertiary);
     color: var(--secondary);
     cursor: pointer;
