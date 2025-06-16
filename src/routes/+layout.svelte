@@ -6,7 +6,7 @@
 
 <div class="flex justify-center w-full fixed top-0 left-0 z-100">
 	<header>
-		<img src="media/saris logo.png" alt="">
+		<img src="media/saris logo.png" alt="" class="logo">
 		<nav>
 			<a href="/">Ubytovanie</a>
 			<a href="/">Gastronómia</a>
@@ -17,10 +17,15 @@
 			<span class="material-symbols-outlined">
 				language
 			</span>
+			<a href="/">
+				<img src="Facebook_Logo_Primary.png" alt="" class="social-icon">
+			</a>
+			<a href="/">
+				<img src="Instagram_Glyph_Gradient.png" alt="" class="social-icon">
+			</a>
 		</nav>
 	</header>
 </div>
-
 
 {@render children()}
 
@@ -45,7 +50,7 @@
 		background-size:51% 51%;
 		background-repeat:no-repeat;
 
-		font-size: 1.2rem;
+		font-size: 1rem;
 	}
 
 	header::after {
@@ -85,7 +90,7 @@
 		padding: 0.5rem;
 	}
 
-	header img {
+	.logo {
 		height: 100%;
 		width: auto;
 		float: center;
@@ -101,5 +106,10 @@
 	a:hover {
 		text-shadow: 0 0 1rem var(--tertiary);
 		color: white;
+	}
+
+	.social-icon {
+		height: 1.2rem;
+		width: auto;
 	}
 </style>

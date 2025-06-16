@@ -44,6 +44,7 @@ export default defineConfig({
             type: "image",
             name: "image",
             label: "Image",
+            list: true,
           },
           {
             type: "rich-text",
@@ -80,6 +81,62 @@ export default defineConfig({
             name: "body",
             label: "Body",
             isBody: true,
+          },
+        ],
+      },
+      {
+        name: 'test',
+        label: 'A page of the website',
+        path: 'content/pages',
+        format: 'mdx',
+        templates: [
+          {
+            name: 'content',
+            label: 'Content Page',
+            fields: [
+              {
+                type: "string",
+                name: "title",
+                label: "Title",
+                isTitle: true,
+                required: true,
+              },
+              {
+                type: "image",
+                name: "image",
+                label: "Image",
+              },
+              {
+                type: "rich-text",
+                name: "body",
+                label: "Body",
+                isBody: true,
+              },
+            ],
+          },
+          {
+            name: 'marketing',
+            label: 'Marketing Page',
+            fields: [
+              {
+                type: "string",
+                name: "title",
+                label: "Title",
+                isTitle: true,
+                required: true,
+              },
+              {
+                type: "image",
+                name: "image",
+                label: "Image",
+              },
+              {
+                type: "rich-text",
+                name: "body",
+                label: "Body",
+                isBody: true,
+              },
+            ],
           },
         ],
       },

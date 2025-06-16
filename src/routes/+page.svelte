@@ -1,5 +1,9 @@
-<script>
+<script lang="ts">
+  import LightboxModal from "$lib/LightboxModal.svelte";
+
   // export let data;
+
+  let lightboxImgUrl = "";
 </script>
 
 <!-- <div class="pages">
@@ -12,14 +16,18 @@
   {/each}
 </div> -->
 
+{#if lightboxImgUrl}
+  <LightboxModal imgUrl={lightboxImgUrl} close={() => lightboxImgUrl = ""} />
+{/if}
+
 <section class="hero">
-  <div class="content">
+  <div class="hero-content">
     <div>
       <div class="vertical-l"></div>
       <div class="horizontal-l"></div>
     </div>
 
-    <div class="content-inner">
+    <div class="hero-content-inner">
       <h1>
         Hotel v centre historického Bardejova
       </h1>
@@ -27,14 +35,14 @@
 
     <div class="horizontal-l"></div>
 
-    <div class="content-inner content-btns">
-      <button>
+    <div class="hero-content-inner hero-btns">
+      <button class="primary-btn">
         <span class="material-symbols-outlined">
           calendar_month
         </span>
         Rezervovať
       </button>
-      <button>
+      <button class="primary-btn">
         <span class="material-symbols-outlined">
           restaurant
         </span>
@@ -52,68 +60,114 @@
 </section>
 
 <section class="bg">
-  <div class="spacer">
-    <div class="vertical-l"></div>
-    <div class="horizontal-l"></div>
-  </div>
-
   <article>
-    <img src="media/pexels-evonics-1058277.jpg" alt="">
-    <div>
-      <h1>O hoteli</h1>
-      <p>
-        Hotel Saris sa nachádza v centre historického mesta Bardejov, ktoré je zapísané na zozname svetového kultúrneho dedičstva UNESCO. Hotel ponúka komfortné ubytovanie, reštauráciu s tradičnou slovenskou kuchyňou a moderné konferenčné priestory.
-      </p>
+    <div class="text">
+      <div>
+        <div class="vertical-l"></div>
+        <div class="horizontal-l"></div>
+      </div>
+      <div class="text-inner">
+        <h1>O hoteli</h1>
+        <p>
+          Hotel Saris sa nachádza v centre historického mesta Bardejov, ktoré je zapísané na zozname svetového kultúrneho dedičstva UNESCO. Hotel ponúka komfortné ubytovanie, reštauráciu s tradičnou slovenskou kuchyňou a moderné konferenčné priestory.
+        </p>
+      </div>
+      <div>
+        <div class="horizontal-l"></div>
+        <div class="vertical-l"></div>
+      </div>
+    </div>
+    <div class="gallery">
+      <button onclick={e => lightboxImgUrl = (e.target as HTMLImageElement)?.src || ""}>
+        <img src="media/pexels-evonics-1058277.jpg" alt="">
+      </button>
     </div>
   </article>
 
-  <div class="horizontal-l"></div>
-
   <article>
-    <div>
-      <h1>Ubytovanie</h1>
-      <p>
-        Hotel Saris ponúka rôzne typy izieb, od štandardných jedno- a dvojlôžkových izieb až po luxusné apartmány. Všetky izby sú vybavené moderným nábytkom, Wi-Fi pripojením a TV.
-      </p>
+    <div class="text">
+      <div>
+        <div class="vertical-l"></div>
+        <div class="horizontal-l"></div>
+      </div>
+      <div class="text-inner">
+        <h1>Ubytovanie</h1>
+        <p>
+          Hotel Saris ponúka rôzne typy izieb, od štandardných jedno- a dvojlôžkových izieb až po luxusné apartmány. Všetky izby sú vybavené moderným nábytkom, Wi-Fi pripojením a TV.
+        </p>
+      </div>
+      <div>
+        <div class="horizontal-l"></div>
+        <div class="vertical-l"></div>
+      </div>
     </div>
-    <img src="media/saris4.jpg" alt="">
+    <div class="gallery">
+      <button onclick={e => lightboxImgUrl = (e.target as HTMLImageElement)?.src || ""}>
+        <img src="media/saris4.jpg" alt="">
+      </button>
+    </div>
   </article>
 
-  <div class="horizontal-l"></div>
-
   <article>
-    <img src="media/saris zenich nevesta.jpg" alt="">
-    <div>
-      <h1>Gastronómia</h1>
-      <p>
-        Reštaurácia hotela Saris ponúka široký výber jedál z tradičnej slovenskej kuchyne, ako aj medzinárodné špeciality. Hostia si môžu vychutnať jedlo v príjemnom prostredí s výhľadom na historické centrum mesta.
-      </p>
+    <div class="text">
+      <div>
+        <div class="vertical-l"></div>
+        <div class="horizontal-l"></div>
+      </div>
+      <div class="text-inner">
+        <h1>Gastronómia</h1>
+        <p>
+          Reštaurácia hotela Saris ponúka široký výber jedál z tradičnej slovenskej kuchyne, ako aj medzinárodné špeciality. Hostia si môžu vychutnať jedlo v príjemnom prostredí s výhľadom na historické centrum mesta.
+        </p>
+      </div>
+      <div>
+        <div class="horizontal-l"></div>
+        <div class="vertical-l"></div>
+      </div>
+    </div>
+    <div class="gallery">
+      <button onclick={e => lightboxImgUrl = (e.target as HTMLImageElement)?.src || ""}>
+        <img src="media/saris zenich nevesta.jpg" alt="">
+      </button>
     </div>
   </article>
 
-  <div class="horizontal-l"></div>
-
   <article>
-    <div>
-      <h1>Aktivity</h1>
-      <p>
-        V blízkosti hotela sa nachádzajú rôzne turistické a cyklistické trasy, ako aj historické pamiatky. Hostia môžu navštíviť Bardejovské kúpele, ktoré sú známe svojimi liečivými prameňmi.
-      </p>
+    <div class="text">
+      <div>
+        <div class="vertical-l"></div>
+        <div class="horizontal-l"></div>
+      </div>
+      <div class="text-inner">
+        <h1>Aktivity</h1>
+        <p>
+          V blízkosti hotela sa nachádzajú rôzne turistické a cyklistické trasy, ako aj historické pamiatky. Hostia môžu navštíviť Bardejovské kúpele, ktoré sú známe svojimi liečivými prameňmi.
+        </p>
+      </div>
+      <div>
+        <div class="horizontal-l"></div>
+        <div class="vertical-l"></div>
+      </div>
     </div>
-    <img src="media/pexels-evonics-1058277.jpg" alt="">
+    <div class="gallery">
+      <button onclick={e => lightboxImgUrl = (e.target as HTMLImageElement)?.src || ""}>
+        <img src="media/pexels-evonics-1058277.jpg" alt="">
+      </button>
+      <button onclick={e => lightboxImgUrl = (e.target as HTMLImageElement)?.src || ""}>
+        <img src="media/pexels-evonics-1058277.jpg" alt="">
+      </button>
+      <button onclick={e => lightboxImgUrl = (e.target as HTMLImageElement)?.src || ""}>
+        <img src="media/pexels-evonics-1058277.jpg" alt="">
+      </button>
+    </div>
   </article>
-
-  <div class="spacer">
-    <div class="horizontal-l"></div>
-    <div class="vertical-l"></div>
-  </div>
 </section>
 
 <style>
   /* Hero */
 
   .hero {
-    height: 95vh;
+    height: 100vh;
     overflow: hidden;
     display: grid;
     grid-template-columns: 55% 1fr;
@@ -127,7 +181,7 @@
     object-position: center 20%;
   }
 
-  .hero .content {
+  .hero-content {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr auto auto auto 1fr;
@@ -136,45 +190,89 @@
     z-index: 10;
   }
 
-  .hero .content-inner {
+  .hero-content-inner {
     margin: 0 3rem;
     padding: 2rem;
     border-left: 1px solid var(--tertiary-border);
     border-right: 1px solid var(--tertiary-border);
+    animation: vertical-l 2s ease-in-out forwards;
   }
 
-  .hero .content-inner h1 {
+  @keyframes vertical-l {
+    0% {
+      height: 4rem;
+    }
+    100% {
+      height: 100%;
+    }
+  }
+
+  .hero-content-inner h1 {
     font-family: "Gloock", serif;
     color: var(--tertiary);
-    font-size: 6rem;
+    font-size: 5.5rem;
     font-weight: 400;
     letter-spacing: -0.15rem;
-    line-height: 7rem;
+    line-height: 6.5rem;
+  }
+
+  .vertical-l {
+    height: 100%;
+    border-left: 1px solid var(--tertiary-border);
+    border-right: 1px solid var(--tertiary-border);
+    animation: vertical-l-mask 2s ease-in-out forwards;
+    mask-image: linear-gradient(
+      to bottom,
+      white 100%,
+      transparent 0%
+    );
+    mask-repeat: no-repeat;
   }
 
   .hero .vertical-l {
-    height: 100%;
     margin: 0 3rem;
-    border-left: 1px solid var(--tertiary-border);
-    border-right: 1px solid var(--tertiary-border);
+  }
+
+  @keyframes vertical-l-mask {
+    0% {
+      mask-size: 100% 0%;
+    }
+    100% {
+      mask-size: 100% 100%;
+    }
   }
 
   .horizontal-l {
     height: 1px;
-    width: 100%;
+    width: 0%;
     background-color: var(--tertiary-border);
+    animation: horizontal-l 2s ease-in-out forwards;
   }
 
-  .hero .content-btns {
+  .horizontal-l:nth-of-type(odd) {
+    float: right;
+  }
+
+  @keyframes horizontal-l {
+    0% {
+      width: 0;
+    }
+    100% {
+      width: 100%;
+    }
+  }
+
+  .hero-btns {
     display: flex;
     gap: 2rem;
     justify-content: flex-end;
+    animation: none;
   }
 
-  button {
+  .primary-btn {
     padding: 0.5rem 1rem;
     color: var(--tertiary);
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     cursor: pointer;
 
     display: flex;
@@ -192,7 +290,7 @@
 		background-repeat:no-repeat;
   }
 
-  button:hover {
+  .primary-btn:hover {
     color: var(--secondary);
 
     background:
@@ -204,7 +302,7 @@
 		background-repeat:no-repeat;
   }
 
-	button::before {
+	.primary-btn::before {
 		content: '';
 		position: absolute;
 		height: calc(100% + 2px);
@@ -224,65 +322,255 @@
 	}
 
   /* Articles */
-
+  
   .bg {
-    background-color: var(--secondary);
-  }
-
-  .spacer {
-    height: 20vh;
-  }
-
-  .vertical-l {
-    height: 100%;
-    border-left: 1px solid var(--tertiary-border);
-    border-right: 1px solid var(--tertiary-border);
-    max-width: 100rem;
-    margin: 0 auto;
+    /* background: linear-gradient(
+      135deg,
+      var(--primary) 0%,
+      var(--secondary) 100%
+    ); */
+    /* background:
+    radial-gradient(
+      circle at 5% 10%,
+      #61584b30 0%,
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 80% 90%,
+      #61584b30 0%,
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 50% 50%,
+      #61584b30 0%,
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 30% 70%,
+      #61584b30 0%,
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 70% 30%,
+      #61584b30 0%,
+      transparent 30%
+    ),
+    var(--secondary); */
+    background-color: var(--primary);
+    padding: 20vh 0;
+    overflow-x: hidden;
   }
 
   article {
-    margin: 0 auto;
-    color: white;
     display: grid;
-    grid-template-columns: auto auto;
-    grid-template-rows: 1fr;
-    max-width: 100rem;
-    max-height: 70vh;
-    border-left: 1px solid var(--tertiary-border);
-    border-right: 1px solid var(--tertiary-border);
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    max-width: 1500px;
+    margin: 0 auto 20vh auto;
+    padding: 0 2rem;
+    min-height: 400px;
+    max-height: 80vh;
   }
 
-  article > img {
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
+  article:nth-child(even) .text {
+    order: 2;
   }
 
-  article > div {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 6rem 4rem;
+  article:nth-child(even) .gallery {
+    order: 1;
   }
 
-  article h1 {
-    /* color: var(--tertiary-semi); */
+  .text {
+    display: grid;
+    grid-template-rows: 1fr auto 1fr;
+    grid-template-columns: 1fr;
+    padding: 1rem;
+    z-index: 3;
+    /* background: radial-gradient(
+      closest-side at center,
+      #61584b20 60%,
+      transparent 80%
+    ); */
+  }
+
+  .text h1 {
     font-family: "Gloock", serif;
-    font-size: 6rem;
+    font-size: 5rem;
     font-weight: 800;
     letter-spacing: -0.05rem;
 
     background: radial-gradient(
       var(--tertiary) 0%,
-      var(--tertiary-border) 60%
+      var(--tertiary-semi) 80%
     );
     background-clip: text;
     -webkit-text-fill-color: transparent;
+
+    /* text-shadow: 0 0 2rem #61584b70; */
   }
 
-  article p {
-    font-size: 1.2rem;
-    line-height: 2rem;
+  .text p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: white;
+  }
+
+  .text .vertical-l {
+    margin: 0 2rem;
+    min-height: 2rem;
+  }
+
+  .text-inner {
+    margin: 0 2rem;
+    padding: 2rem;
+    border-left: 1px solid var(--tertiary-border);
+    border-right: 1px solid var(--tertiary-border);
+    animation: vertical-l 2s ease-in-out forwards;
+  }
+
+  .gallery {
+    display: grid;
+    gap: 1rem;
+    height: 100%;
+    max-height: 80vh;
+    position: relative;
+  }
+
+  .gallery::before {
+    content: "";
+    display: block;
+    width: 25vh;
+    height: 25vh;
+    position: absolute;
+    top: -10%;
+    left: -15%;
+    background-color: #61584b10;
+    backdrop-filter: blur(10px);
+    z-index: 2;
+  }
+
+  article:nth-child(even) .gallery::before {
+    left: unset;
+    right: -15%;
+  }
+
+  .gallery::after {
+    content: "";
+    display: block;
+    width: 15vh;
+    height: 15vh;
+    position: absolute;
+    bottom: -10%;
+    right: -5%;
+    background-color: #61584b10;
+    backdrop-filter: blur(10px);
+    z-index: 2;
+  }
+
+  article:nth-child(even) .gallery::after {
+    right: unset;
+    left: -5%;
+  }
+
+  .gallery button {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    overflow: hidden;
+
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .gallery img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    cursor: pointer;
+    display: block;
+  }
+
+  .gallery button:hover {
+    transform: scale(1.01);
+    box-shadow: 0 0 2rem #61584b20;
+  }
+
+  /* Single image */
+  .gallery:has(img:only-child),
+  .gallery:has(button:only-child) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+  }
+
+  /* Two images */
+  .gallery:has(img:nth-child(2):last-child),
+  .gallery:has(button:nth-child(2):last-child) {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+  }
+
+  /* Three images */
+  .gallery:has(img:nth-child(3):last-child),
+  .gallery:has(button:nth-child(3):last-child) {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+
+  .gallery:has(img:nth-child(3):last-child) img:first-child,
+  .gallery:has(button:nth-child(3):last-child) button:first-child {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+
+  /* Four images */
+  .gallery:has(img:nth-child(4):last-child),
+  .gallery:has(button:nth-child(4):last-child) {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+
+  /* Five or more images */
+  .gallery:has(img:nth-child(n+5)),
+  .gallery:has(button:nth-child(n+5)) {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(auto-fit, 1fr);
+  }
+
+  /* Responsive design */
+  @media (max-width: 768px) {
+    article {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-bottom: 4rem;
+      min-height: auto;
+    }
+
+    article:nth-child(even) {
+      grid-template-columns: 1fr;
+    }
+
+    article:nth-child(even) .text,
+    article:nth-child(even) .gallery {
+      order: unset;
+    }
+
+    .text {
+      padding: 1rem;
+    }
+
+    .text h1 {
+      font-size: 2.5rem;
+    }
+
+    .text p {
+      font-size: 1.1rem;
+    }
+
+    .gallery {
+      min-height: 250px;
+    }
   }
 </style>
