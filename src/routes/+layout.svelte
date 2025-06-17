@@ -8,22 +8,43 @@
 	<header>
 		<img src="media/saris logo.png" alt="" class="logo">
 		<nav>
-			<a href="/">Ubytovanie</a>
-			<div class="flyout">
-				<a href="/">Izby</a>
-				<a href="/">Cenník</a>
-			</div>
-			<a href="/">Gastronómia</a>
-			<div class="flyout">
-				<a href="/">Denné menu</a>
-				<a href="/">Jedálny lístok</a>
-				<a href="/">Reštaurácia</a>
-			</div>
-			<a href="/">Aktivity</a>
-			<div class="flyout">
-				<a href="/">Sauna a fitness</a>
-				<a href="/">Mesto Bardejov</a>
-			</div>
+			<span class="flyout-trigger">
+				<span class="flyout-title">
+					Ubytovanie
+					<span class="material-symbols-outlined">
+						arrow_drop_down
+					</span>
+				</span>
+				<div class="flyout">
+					<a href="/">Izby</a>
+					<a href="/">Cenník</a>
+				</div>
+			</span>
+			<span class="flyout-trigger">
+				<span class="flyout-title">
+					Gastronómia
+					<span class="material-symbols-outlined">
+						arrow_drop_down
+					</span>
+				</span>
+				<div class="flyout">
+					<a href="/">Denné menu</a>
+					<a href="/">Jedálny lístok</a>
+					<a href="/">Reštaurácia</a>
+				</div>
+			</span>
+			<span class="flyout-trigger">
+				<span class="flyout-title">
+					Aktivity
+					<span class="material-symbols-outlined">
+						arrow_drop_down
+					</span>
+				</span>
+				<div class="flyout">
+					<a href="/">Sauna a fitness</a>
+					<a href="/">Mesto Bardejov</a>
+				</div>
+			</span>
 			<a href="/">Svadby</a>
 			<a href="/">Firemné akcie</a>
 			<a href="/">Kontakt</a>
@@ -112,14 +133,14 @@
 		padding: 1rem 0;
 	}
 
-	nav > a {
+	nav > a, .flyout-trigger {
 		text-decoration: none;
 		transition: text-shadow 0.15s ease-in-out, color 0.15s ease-in-out;
 		color: var(--tertiary);
 		padding: 1.5rem 0;
 	}
 
-	a:hover {
+	a:hover, .flyout-trigger:hover .flyout-title {
 		text-shadow: 0 0 1rem var(--tertiary);
 		color: white;
 	}
@@ -129,13 +150,18 @@
 		width: auto;
 	}
 
+	.flyout-title {
+		display: flex;
+		align-items: center;
+		cursor: pointer;
+	}
+
 	.flyout {
 		display: flex;
 		position: absolute;
 		top: 100%;
-		width: 100%;
-		transform: translateX(-0.5rem);
-		padding: 0.25rem 0.75rem 0.75rem 0.75rem;
+		transform: translateX(-0.75rem);
+		padding: 0.25rem 3rem 0.75rem 0.75rem;
 		flex-direction: column;
 		gap: 0.5rem;
 		background:
@@ -168,7 +194,7 @@
 		z-index: -1;
 	}
 
-	a:hover + .flyout, .flyout:hover {
+	.flyout-trigger:hover > .flyout, .flyout:hover {
 		mask-size: 100% 100%;
 		pointer-events: all;
 	}
