@@ -29,115 +29,103 @@ export default defineConfig({
   schema: {
     collections: [
       {
-        name: "page",
-        label: "Pages",
-        path: "content/page",
+        name: "pages",
+        path: "content/pages",
+        label: "Stránky",
         fields: [
           {
             type: "string",
             name: "title",
-            label: "Title",
+            label: "Nadpis",
             isTitle: true,
             required: true,
           },
           {
             type: "image",
             name: "image",
-            label: "Image",
+            label: "Titulný obrázok",
+          },
+          {
+            type: "object",
+            name: "body",
+            label: "Obsah",
             list: true,
-          },
-          {
-            type: "rich-text",
-            name: "body",
-            label: "Body",
-            isBody: true,
-          },
-        ],
-      },
-      {
-        name: "homepage",
-        label: "Homepage",
-        path: "content/homepage",
-        fields: [
-          {
-            type: "string",
-            name: "title",
-            label: "Title",
-            isTitle: true,
-            required: true,
-          },
-          {
-            type: "boolean",
-            name: "isTitle",
-            label: "Is Title",
-          },
-          {
-            type: "image",
-            name: "image",
-            label: "Image",
-          },
-          {
-            type: "rich-text",
-            name: "body",
-            label: "Body",
-            isBody: true,
-          },
-        ],
-      },
-      {
-        name: 'test',
-        label: 'A page of the website',
-        path: 'content/pages',
-        format: 'mdx',
-        templates: [
-          {
-            name: 'content',
-            label: 'Content Page',
+            ui: {
+              itemProps: (item) => ({
+                label: item.title || "Untitled"
+              })
+            },
             fields: [
               {
                 type: "string",
                 name: "title",
-                label: "Title",
-                isTitle: true,
-                required: true,
+                label: "Nadpis",
               },
               {
                 type: "image",
-                name: "image",
-                label: "Image",
+                name: "gallery",
+                label: "Obrázky",
+                list: true,
               },
               {
                 type: "rich-text",
-                name: "body",
-                label: "Body",
+                name: "text",
+                label: "Text",
                 isBody: true,
               },
+              {
+                type: "object",
+                name: "buttons",
+                label: "Tlačidlá",
+                list: true,
+                templates: [
+                  {
+                    name: "pageButton",
+                    label: "Interný odkaz na stránku",
+                    ui: {
+                      itemProps: (item) => ({
+                        label: item.text || "Untitled"
+                      })
+                    },
+                    fields: [
+                      {
+                        type: "string",
+                        name: "text",
+                        label: "Text tlačidla",
+                      },
+                      {
+                        type: "reference",
+                        name: "page",
+                        label: "Stránka",
+                        collections: ["pages"],
+                      },
+                    ],
+                  },
+                  {
+                    name: "urlButton",
+                    label: "Externý odkaz na URL",
+                    ui: {
+                      itemProps: (item) => ({
+                        label: item.text || "Untitled"
+                      })
+                    },
+                    fields: [
+                      {
+                        type: "string",
+                        name: "text",
+                        label: "Text tlačidla",
+                      },
+                      {
+                        type: "string",
+                        name: "link",
+                        label: "Odkaz",
+                      },
+                    ],
+                  },
+                ],
+              },
             ],
-          },
-          {
-            name: 'marketing',
-            label: 'Marketing Page',
-            fields: [
-              {
-                type: "string",
-                name: "title",
-                label: "Title",
-                isTitle: true,
-                required: true,
-              },
-              {
-                type: "image",
-                name: "image",
-                label: "Image",
-              },
-              {
-                type: "rich-text",
-                name: "body",
-                label: "Body",
-                isBody: true,
-              },
-            ],
-          },
+          }
         ],
       },
     ],

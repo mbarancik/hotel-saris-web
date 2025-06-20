@@ -6,7 +6,9 @@
 
 <div class="flex justify-center w-full fixed top-0 left-0 z-100">
 	<header>
-		<img src="media/saris logo.png" alt="" class="logo">
+		<a href="/" class="logo">
+			<img src="media/saris logo.png" alt="">
+		</a>
 		<nav>
 			<span class="flyout-trigger">
 				<span class="flyout-title">
@@ -16,7 +18,7 @@
 					</span>
 				</span>
 				<div class="flyout">
-					<a href="/">Izby</a>
+					<a href="/Izby">Izby</a>
 					<a href="/">Cenník</a>
 				</div>
 			</span>
@@ -116,6 +118,23 @@
 		filter: drop-shadow(0 0.2rem 0.3rem #10101080);
 	}
 
+	.logo {
+		height: 100%;
+		width: auto;
+	}
+
+	.logo img {
+		height: 100%;
+		width: auto;
+		float: center;
+		filter: sepia(45%) saturate(637%) hue-rotate(308deg) brightness(80%) contrast(96%);
+		padding: 1rem 0;
+	}
+
+	.logo:hover {
+		filter: drop-shadow(0 0 0.4rem var(--tertiary-semi)) brightness(10);
+	}
+
 	nav {
 		height: 100%;
 		display: flex;
@@ -123,14 +142,6 @@
 		gap: 2rem;
 		padding: 0 0.5rem;
 		position: relative;
-	}
-
-	.logo {
-		height: 100%;
-		width: auto;
-		float: center;
-		filter: sepia(45%) saturate(637%) hue-rotate(308deg) brightness(80%) contrast(96%);
-		padding: 1rem 0;
 	}
 
 	nav > a, .flyout-trigger {

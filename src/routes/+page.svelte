@@ -1,9 +1,9 @@
 <script lang="ts">
   import LightboxModal from "$lib/LightboxModal.svelte";
-
+  
   // export let data;
 
-  let lightboxImgUrl = "";
+  let lightboxImgUrl = $state("");
 </script>
 
 <!-- <div class="pages">

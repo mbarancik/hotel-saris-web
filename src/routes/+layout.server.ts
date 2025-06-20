@@ -1,9 +1,9 @@
 import { client } from '../../tina/__generated__/client';
 
 export async function load() {
-  const pagesResponse = await client.queries.pageConnection();
+  const pagesResponse = await client.queries.pagesConnection();
   
   return {
-    pages: pagesResponse.data.pageConnection.edges || []
+    pages: pagesResponse.data.pagesConnection.edges || []
   };
 }
