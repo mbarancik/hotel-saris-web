@@ -3,80 +3,132 @@
 @import 'tailwindcss';
 
 :root {
-  --primary: #201811;
-  --secondary: #140f0b;
-  --tertiary: #e7d2b5;
-  --tertiary-semi: #837665;
-  --tertiary-border: #61584b;
+	--primary: #201811;
+	--secondary: #140f0b;
+	--tertiary: #e7d2b5;
+	--tertiary-semi: #837665;
+	--tertiary-border: #61584b;
 }
 
 .material-symbols-outlined {
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 200,
-  'GRAD' 0,
-  'opsz' 48
+	font-variation-settings:
+		'FILL' 0,
+		'wght' 200,
+		'GRAD' 0,
+		'opsz' 48;
 }
 
 * {
-  font-family: "Inter Tight", sans-serif;
-  font-weight: 300;
+	font-family: 'Inter Tight', sans-serif;
+	font-weight: 300;
 }
 
 .text-body > * {
-  color: white;
-  margin-top: 1rem;
+	color: white;
+	margin-top: 1rem;
 }
 
 .text-body h1 {
-  font-size: 1.8rem;
-  font-weight: 700;
+	font-size: 1.8rem;
+	font-weight: 700;
 }
 
 .text-body h2 {
-  font-size: 1.6rem;
-  font-weight: 600;
+	font-size: 1.6rem;
+	font-weight: 600;
 }
 
 .text-body h3 {
-  font-size: 1.4rem;
-  font-weight: 500;
+	font-size: 1.4rem;
+	font-weight: 500;
 }
 
 .text-body h4 {
-  font-size: 1.3rem;
-  font-weight: 400;
+	font-size: 1.3rem;
+	font-weight: 400;
 }
 
 .text-body h5 {
-  font-size: 1.2rem;
-  font-weight: 300;
+	font-size: 1.2rem;
+	font-weight: 300;
 }
 
 .text-body h6 {
-  font-size: 1.1rem;
-  font-weight: 300;
+	font-size: 1.1rem;
+	font-weight: 300;
 }
 
 .text-body ul,
 .text-body ol {
-  margin-left: 1.5rem;
+	margin-left: 1.5rem;
 }
 
 .text-body li {
-  list-style-type: disc;
-  margin-bottom: 0.2rem;
+	list-style-type: disc;
+	margin-bottom: 0.2rem;
 }
 
 .text-body a {
-  color: var(--tertiary);
-  text-decoration: wavy underline;
+	color: var(--tertiary);
+	text-decoration: wavy underline;
 }
 
 .text-body a:hover {
-  color: white;
+	color: white;
 }
 
 .text-body strong {
-  font-weight: 700;
+	font-weight: 700;
+}
+
+.primary-btn {
+	padding: 0.5rem 1rem;
+	color: var(--tertiary);
+	font-size: 1rem;
+	cursor: pointer;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	position: relative;
+
+	background:
+		radial-gradient(circle 0.5rem at top left, #0000 98%, var(--secondary)) top left,
+		radial-gradient(circle 0.5rem at top right, #0000 98%, var(--secondary)) top right,
+		radial-gradient(circle 0.5rem at bottom left, #0000 98%, var(--secondary)) bottom left,
+		radial-gradient(circle 0.5rem at bottom right, #0000 98%, var(--secondary)) bottom right;
+	background-size: 51% 51%;
+	background-repeat: no-repeat;
+}
+
+.primary-btn:hover {
+	color: var(--secondary);
+
+	background:
+		radial-gradient(circle 0.5rem at top left, #0000 98%, var(--tertiary)) top left,
+		radial-gradient(circle 0.5rem at top right, #0000 98%, var(--tertiary)) top right,
+		radial-gradient(circle 0.5rem at bottom left, #0000 98%, var(--tertiary)) bottom left,
+		radial-gradient(circle 0.5rem at bottom right, #0000 98%, var(--tertiary)) bottom right;
+	background-size: 51% 51%;
+	background-repeat: no-repeat;
+}
+
+.primary-btn::before {
+	content: '';
+	position: absolute;
+	height: calc(100% + 2px);
+	width: calc(100% + 2px);
+
+	background:
+		radial-gradient(circle 0.5rem at top left, #0000 98%, var(--tertiary-semi)) top left,
+		radial-gradient(circle 0.5rem at top right, #0000 98%, var(--tertiary-semi)) top right,
+		radial-gradient(circle 0.5rem at bottom left, #0000 98%, var(--tertiary-semi)) bottom left,
+		radial-gradient(circle 0.5rem at bottom right, #0000 98%, var(--tertiary-semi)) bottom right;
+	background-size: 51% 51%;
+	background-repeat: no-repeat;
+
+	z-index: -1;
+
+	filter: drop-shadow(0 0.2rem 0.3rem #202020aa);
 }

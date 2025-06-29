@@ -4,18 +4,16 @@
 	let { children, data } = $props();
 </script>
 
-<div class="flex justify-center w-full fixed top-0 left-0 z-100">
+<div class="fixed top-0 left-0 z-100 flex w-full justify-center">
 	<header>
 		<a href="/" class="logo">
-			<img src="media/saris logo.png" alt="">
+			<img src="media/saris logo.png" alt="" />
 		</a>
 		<nav>
 			<span class="flyout-trigger">
 				<span class="flyout-title">
 					Ubytovanie
-					<span class="material-symbols-outlined">
-						arrow_drop_down
-					</span>
+					<span class="material-symbols-outlined"> arrow_drop_down </span>
 				</span>
 				<div class="flyout">
 					<a href="/Izby">Izby</a>
@@ -25,9 +23,7 @@
 			<span class="flyout-trigger">
 				<span class="flyout-title">
 					Gastronómia
-					<span class="material-symbols-outlined">
-						arrow_drop_down
-					</span>
+					<span class="material-symbols-outlined"> arrow_drop_down </span>
 				</span>
 				<div class="flyout">
 					<a href="/">Denné menu</a>
@@ -38,9 +34,7 @@
 			<span class="flyout-trigger">
 				<span class="flyout-title">
 					Aktivity
-					<span class="material-symbols-outlined">
-						arrow_drop_down
-					</span>
+					<span class="material-symbols-outlined"> arrow_drop_down </span>
 				</span>
 				<div class="flyout">
 					<a href="/">Sauna a fitness</a>
@@ -50,14 +44,12 @@
 			<a href="/">Svadby</a>
 			<a href="/">Firemné akcie</a>
 			<a href="/">Kontakt</a>
-			<span class="material-symbols-outlined">
-				language
-			</span>
+			<span class="material-symbols-outlined"> language </span>
 			<a href="/">
-				<img src="Facebook_Logo_Primary.png" alt="" class="social-icon">
+				<img src="Facebook_Logo_Primary.png" alt="" class="social-icon" />
 			</a>
 			<a href="/">
-				<img src="Instagram_Glyph_Gradient.png" alt="" class="social-icon">
+				<img src="Instagram_Glyph_Gradient.png" alt="" class="social-icon" />
 			</a>
 		</nav>
 	</header>
@@ -79,12 +71,12 @@
 		position: relative;
 
 		background:
-			radial-gradient(circle 1rem at top    left ,#0000 98%,var(--secondary)  ) top    left,
-			radial-gradient(circle 1rem at top    right,#0000 98%,var(--secondary) ) top    right,
-			radial-gradient(circle 1rem at bottom left ,#0000 98%,var(--secondary)) bottom left,
-			radial-gradient(circle 1rem at bottom right,#0000 98%,var(--secondary)) bottom right;
-		background-size:51% 51%;
-		background-repeat:no-repeat;
+			radial-gradient(circle 1rem at top left, #0000 98%, var(--secondary)) top left,
+			radial-gradient(circle 1rem at top right, #0000 98%, var(--secondary)) top right,
+			radial-gradient(circle 1rem at bottom left, #0000 98%, var(--secondary)) bottom left,
+			radial-gradient(circle 1rem at bottom right, #0000 98%, var(--secondary)) bottom right;
+		background-size: 51% 51%;
+		background-repeat: no-repeat;
 
 		font-size: 1rem;
 	}
@@ -106,12 +98,12 @@
 		width: calc(100% + 2px);
 
 		background:
-			radial-gradient(circle 1rem at top    left ,#0000 98%,var(--tertiary-semi)  ) top    left,
-			radial-gradient(circle 1rem at top    right,#0000 98%,var(--tertiary-semi) ) top    right,
-			radial-gradient(circle 1rem at bottom left ,#0000 98%,var(--tertiary-semi)) bottom left,
-			radial-gradient(circle 1rem at bottom right,#0000 98%,var(--tertiary-semi)) bottom right;
-		background-size:51% 51%;
-		background-repeat:no-repeat;
+			radial-gradient(circle 1rem at top left, #0000 98%, var(--tertiary-semi)) top left,
+			radial-gradient(circle 1rem at top right, #0000 98%, var(--tertiary-semi)) top right,
+			radial-gradient(circle 1rem at bottom left, #0000 98%, var(--tertiary-semi)) bottom left,
+			radial-gradient(circle 1rem at bottom right, #0000 98%, var(--tertiary-semi)) bottom right;
+		background-size: 51% 51%;
+		background-repeat: no-repeat;
 
 		z-index: -1;
 
@@ -144,14 +136,18 @@
 		position: relative;
 	}
 
-	nav > a, .flyout-trigger {
+	nav > a,
+	.flyout-trigger {
 		text-decoration: none;
-		transition: text-shadow 0.15s ease-in-out, color 0.15s ease-in-out;
+		transition:
+			text-shadow 0.15s ease-in-out,
+			color 0.15s ease-in-out;
 		color: var(--tertiary);
 		padding: 1.5rem 0;
 	}
 
-	a:hover, .flyout-trigger:hover .flyout-title {
+	a:hover,
+	.flyout-trigger:hover .flyout-title {
 		text-shadow: 0 0 1rem var(--tertiary);
 		color: white;
 	}
@@ -176,10 +172,10 @@
 		flex-direction: column;
 		gap: 0.5rem;
 		background:
-			radial-gradient(circle 0.5rem at bottom left ,#0000 98%,var(--tertiary-semi)) bottom left,
-			radial-gradient(circle 0.5rem at bottom right,#0000 98%,var(--tertiary-semi)) bottom right;
-		background-size:51% 100%;
-		background-repeat:no-repeat;
+			radial-gradient(circle 0.5rem at bottom left, #0000 98%, var(--tertiary-semi)) bottom left,
+			radial-gradient(circle 0.5rem at bottom right, #0000 98%, var(--tertiary-semi)) bottom right;
+		background-size: 51% 100%;
+		background-repeat: no-repeat;
 
 		mask-image: linear-gradient(to bottom, white 100%, transparent 0%);
 		mask-repeat: no-repeat;
@@ -197,15 +193,16 @@
 		width: calc(100% - 2px);
 
 		background:
-			radial-gradient(circle 0.5rem at bottom left ,#0000 98%,var(--secondary)) bottom left,
-			radial-gradient(circle 0.5rem at bottom right,#0000 98%,var(--secondary)) bottom right;
-		background-size:51% 100%;
-		background-repeat:no-repeat;
+			radial-gradient(circle 0.5rem at bottom left, #0000 98%, var(--secondary)) bottom left,
+			radial-gradient(circle 0.5rem at bottom right, #0000 98%, var(--secondary)) bottom right;
+		background-size: 51% 100%;
+		background-repeat: no-repeat;
 
 		z-index: -1;
 	}
 
-	.flyout-trigger:hover > .flyout, .flyout:hover {
+	.flyout-trigger:hover > .flyout,
+	.flyout:hover {
 		mask-size: 100% 100%;
 		pointer-events: all;
 	}

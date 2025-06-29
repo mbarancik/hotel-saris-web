@@ -1,14 +1,14 @@
 @font-face {
-  font-family: "Libertinage";
-  src: url("/fonts/Libertinage.ttf");
+	font-family: 'Libertinage';
+	src: url('/fonts/Libertinage.ttf');
 }
 
 @font-face {
-  font-family: "Basteleur Bold";
-  src: url("/fonts/Basteleur-Bold.woff2") format("woff2");
+	font-family: 'Basteleur Bold';
+	src: url('/fonts/Basteleur-Bold.woff2') format('woff2');
 }
 
 @font-face {
-  font-family: "Basteleur Moonlight";
-  src: url("/fonts/Basteleur-Moonlight.woff2") format("woff2");
+	font-family: 'Basteleur Moonlight';
+	src: url('/fonts/Basteleur-Moonlight.woff2') format('woff2');
 }

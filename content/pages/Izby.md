@@ -1,12 +1,13 @@
 ---
 title: Izby
+category: Ubytovanie
 image: /media/pexels-evonics-1058277.jpg
 body:
   - title: Popis izieb
     text: >
-      Hotel ponúka 18 **dvojposteľových **izieb s *možnosťou *prístelky a 1
-      ~~apartmán~~. Všetky izby majú vlastné sociálne zariadenie (WC, sprchovací
-      kút), televízor, telefón a chladničku.
+      Hotel ponúka 18 \*\*dvojposteľových \*\*izieb s \*možnosťou \*prístelky a
+      1 ~~apartmán~~. Všetky izby majú vlastné sociálne zariadenie (WC,
+      sprchovací kút), televízor, telefón a chladničku.
 
 
       Vybavenie na izbách:
@@ -59,6 +60,13 @@ body:
       - /media/saris2.jpg
     text: |
       Komfortná izba s manželskou posteľou alebo s oddelenými lôžkami.
+    buttons:
+      - text: Izby
+        page: content/pages/Izby.md
+        _template: pageButton
+      - text: Google
+        url: google.com
+        _template: urlButton
   - title: Rodinná izba
     gallery:
       - /media/saris zenich nevesta.jpg
@@ -71,4 +79,3 @@ body:
       Moderne zariadené dve dvojlôžkové izby spojené so spojovacími dverami
       ponúkajú komfort pre 4-5 člennú rodinu s deťmi, možnosť max. 1 prístelky.
 ---
-
