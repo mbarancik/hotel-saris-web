@@ -5,8 +5,6 @@
 	let { data } = $props();
 
 	let lightboxImgUrl = $state('');
-
-	console.log(data.page.body);
 </script>
 
 {#if lightboxImgUrl}

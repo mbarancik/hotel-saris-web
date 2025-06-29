@@ -2,6 +2,8 @@
 	import '../app.css';
 
 	let { children, data } = $props();
+
+	const pages = data?.pages || [];
 </script>
 
 <div class="fixed top-0 left-0 z-100 flex w-full justify-center">
@@ -10,40 +12,25 @@
 			<img src="media/saris logo.png" alt="" />
 		</a>
 		<nav>
-			<span class="flyout-trigger">
-				<span class="flyout-title">
-					Ubytovanie
-					<span class="material-symbols-outlined"> arrow_drop_down </span>
+
+			{#each Object.keys(pages).filter(category => category !== "uncategorized") as category}
+				<span class="flyout-trigger">
+					<span class="flyout-title">
+						{category}
+						<span class="material-symbols-outlined"> arrow_drop_down </span>
+					</span>
+					<div class="flyout">
+						{#each pages[category] || [] as page}
+							<a href="/{page?.node?._sys.filename}">{page?.node?.title}</a>
+						{/each}
+					</div>
 				</span>
-				<div class="flyout">
-					<a href="/Izby">Izby</a>
-					<a href="/">Cenník</a>
-				</div>
-			</span>
-			<span class="flyout-trigger">
-				<span class="flyout-title">
-					Gastronómia
-					<span class="material-symbols-outlined"> arrow_drop_down </span>
-				</span>
-				<div class="flyout">
-					<a href="/">Denné menu</a>
-					<a href="/">Jedálny lístok</a>
-					<a href="/">Reštaurácia</a>
-				</div>
-			</span>
-			<span class="flyout-trigger">
-				<span class="flyout-title">
-					Aktivity
-					<span class="material-symbols-outlined"> arrow_drop_down </span>
-				</span>
-				<div class="flyout">
-					<a href="/">Sauna a fitness</a>
-					<a href="/">Mesto Bardejov</a>
-				</div>
-			</span>
-			<a href="/">Svadby</a>
-			<a href="/">Firemné akcie</a>
-			<a href="/">Kontakt</a>
+			{/each}
+
+			{#each pages["uncategorized"] || [] as page}
+				<a href="/{page?.node?._sys.filename}">{page?.node?.title}</a>
+			{/each}
+
 			<span class="material-symbols-outlined"> language </span>
 			<a href="/">
 				<img src="Facebook_Logo_Primary.png" alt="" class="social-icon" />
