@@ -16,6 +16,9 @@ links:
   - text: Svadby
     page: content/pages/Svadby.md
     _template: pageLink
+  - text: Kontakt
+    page: content/pages/Kontakt.md
+    _template: pageLink
 _template: navMenu
 ---
 

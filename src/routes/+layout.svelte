@@ -4,6 +4,14 @@
 	let { children, data } = $props();
 
 	const pages = data?.pages || [];
+	const navMenu = data?.menu?.find(
+		(item) => item?.node?._sys?.filename === 'NavMenu'
+	)?.node?.links || [];
+	const socialMenu = data?.menu?.find(
+		(item) => item?.node?._sys?.filename === 'SocialMenu'
+	)?.node?.links || [];
+
+	console.log(socialMenu)
 </script>
 
 <div class="fixed top-0 left-0 z-100 flex w-full justify-center">
@@ -13,31 +21,33 @@
 		</a>
 		<nav>
 
-			{#each Object.keys(pages).filter(category => category !== "uncategorized") as category}
-				<span class="flyout-trigger">
-					<span class="flyout-title">
-						{category}
-						<span class="material-symbols-outlined"> arrow_drop_down </span>
+			{#each navMenu as navItem}
+				{#if navItem?.__typename === 'MenuNavMenuLinksCategoryLink'}
+					<span class="flyout-trigger">
+						<span class="flyout-title">
+							{navItem?.text}
+							<span class="material-symbols-outlined"> arrow_drop_down </span>
+						</span>
+						<div class="flyout">
+							{#each navItem?.links || [] as page}
+								<a href="/{page?.page?._sys.filename}">{page?.text}</a>
+							{/each}
+						</div>
 					</span>
-					<div class="flyout">
-						{#each pages[category] || [] as page}
-							<a href="/{page?.node?._sys.filename}">{page?.node?.title}</a>
-						{/each}
-					</div>
-				</span>
+				{:else if navItem?.__typename === 'MenuNavMenuLinksPageLink'}
+					<a href="/{navItem?.page?._sys.filename}">{navItem?.text}</a>
+				{/if}
 			{/each}
 
-			{#each pages["uncategorized"] || [] as page}
-				<a href="/{page?.node?._sys.filename}">{page?.node?.title}</a>
+			{#each socialMenu as socialItem}
+				{#if socialItem?.__typename === 'MenuSocialMenuLinks'}
+					<a href={socialItem?.url}>
+						<img src={socialItem?.image} alt="" class="social-icon" />
+					</a>
+				{/if}
 			{/each}
 
 			<span class="material-symbols-outlined"> language </span>
-			<a href="/">
-				<img src="Facebook_Logo_Primary.png" alt="" class="social-icon" />
-			</a>
-			<a href="/">
-				<img src="Instagram_Glyph_Gradient.png" alt="" class="social-icon" />
-			</a>
 		</nav>
 	</header>
 </div>
