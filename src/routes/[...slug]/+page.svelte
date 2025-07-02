@@ -205,11 +205,6 @@
 		grid-template-columns: 1fr;
 		padding: 1rem;
 		z-index: 3;
-		/* background: radial-gradient(
-      closest-side at center,
-      #61584b20 60%,
-      transparent 80%
-    ); */
 	}
 
 	.text h1 {

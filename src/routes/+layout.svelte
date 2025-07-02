@@ -4,14 +4,10 @@
 	let { children, data } = $props();
 
 	const pages = data?.pages || [];
-	const navMenu = data?.menu?.find(
-		(item) => item?.node?._sys?.filename === 'NavMenu'
-	)?.node?.links || [];
-	const socialMenu = data?.menu?.find(
-		(item) => item?.node?._sys?.filename === 'SocialMenu'
-	)?.node?.links || [];
-
-	console.log(socialMenu)
+	const navMenu =
+		data?.menu?.find((item) => item?.node?._sys?.filename === 'NavMenu')?.node?.links || [];
+	const socialMenu =
+		data?.menu?.find((item) => item?.node?._sys?.filename === 'SocialMenu')?.node?.links || [];
 </script>
 
 <div class="fixed top-0 left-0 z-100 flex w-full justify-center">
@@ -20,7 +16,6 @@
 			<img src="media/saris logo.png" alt="" />
 		</a>
 		<nav>
-
 			{#each navMenu as navItem}
 				{#if navItem?.__typename === 'MenuNavMenuLinksCategoryLink'}
 					<span class="flyout-trigger">

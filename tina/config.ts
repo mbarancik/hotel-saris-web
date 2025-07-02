@@ -135,150 +135,150 @@ export default defineConfig({
 					}
 				]
 			},
-      {
-        name: "menu",
-        path: "content/menu",
-        label: "Menu",
-        ui: {
-          allowedActions: {
-            create: false,
-            delete: false,
-            createNestedFolder: false,
-          }
-        },
-        templates: [
-          {
-            name: "navMenu",
-            label: "Navigačné menu",
-            fields: [
-              {
-                type: 'string',
-                name: 'title',
-                label: 'Menu',
-                isTitle: true,
-                required: true
-              },
-              {
-                type: 'object',
-                name: 'links',
-                label: 'Odkaz',
-                list: true,
-                templates: [
-                  {
-                    name: "pageLink",
-                    label: "Odkaz na stránku",
-                    ui: {
-                      itemProps: (item) => ({
-                        label: item.text || 'Bez názvu'
-                      })
-                    },
-                    fields: [
-                      {
-                        type: 'string',
-                        name: 'text',
-                        label: 'Text odkazu',
-                        required: true
-                      },
-                      {
-                        type: 'reference',
-                        name: 'page',
-                        label: 'Stránka',
-                        collections: ['pages']
-                      },
-                    ]
-                  },
-                  {
-                    name: "categoryLink",
-                    label: "Kategória",
-                    ui: {
-                      itemProps: (item) => ({
-                        label: item.text || 'Bez názvu'
-                      })
-                    },
-                    fields: [
-                      {
-                        type: 'string',
-                        name: 'text',
-                        label: 'Text odkazu',
-                        required: true
-                      },
-                      {
-                        type: 'object',
-                        name: 'links',
-                        label: 'Odkaz',
-                        list: true,
-                        ui: {
-                          itemProps: (item) => ({
-                            label: item.text || 'Bez názvu'
-                          })
-                        },
-                        fields: [
-                          {
-                            type: 'string',
-                            name: 'text',
-                            label: 'Text odkazu',
-                            required: true
-                          },
-                          {
-                            type: 'reference',
-                            name: 'page',
-                            label: 'Stránka',
-                            collections: ['pages']
-                          },
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            name: "socialMenu",
-            label: "Sociálne siete",
-            fields: [
-              {
-                type: 'string',
-                name: 'title',
-                label: 'Menu',
-                isTitle: true,
-                required: true
-              },
-              {
-                type: 'object',
-                name: 'links',
-                label: 'Odkaz',
-                list: true,
-                ui: {
-                  itemProps: (item) => ({
-                    label: item.text || 'Bez názvu'
-                  })
-                },
-                fields: [
-                  {
-                    type: 'string',
-                    name: 'text',
-                    label: 'Názov odkazu',
-                    required: true
-                  },
-                  {
-                    type: 'image',
-                    name: 'image',
-                    label: 'Ikonka',
-                    required: true
-                  },
-                  {
-                    type: 'string',
-                    name: 'url',
-                    label: 'URL odkazu',
-                    required: true
-                  },
-                ]
-              }
-            ]
-          },
-        ]
-      }
+			{
+				name: 'menu',
+				path: 'content/menu',
+				label: 'Menu',
+				ui: {
+					allowedActions: {
+						create: false,
+						delete: false,
+						createNestedFolder: false
+					}
+				},
+				templates: [
+					{
+						name: 'navMenu',
+						label: 'Navigačné menu',
+						fields: [
+							{
+								type: 'string',
+								name: 'title',
+								label: 'Menu',
+								isTitle: true,
+								required: true
+							},
+							{
+								type: 'object',
+								name: 'links',
+								label: 'Odkaz',
+								list: true,
+								templates: [
+									{
+										name: 'pageLink',
+										label: 'Odkaz na stránku',
+										ui: {
+											itemProps: (item) => ({
+												label: item.text || 'Bez názvu'
+											})
+										},
+										fields: [
+											{
+												type: 'string',
+												name: 'text',
+												label: 'Text odkazu',
+												required: true
+											},
+											{
+												type: 'reference',
+												name: 'page',
+												label: 'Stránka',
+												collections: ['pages']
+											}
+										]
+									},
+									{
+										name: 'categoryLink',
+										label: 'Kategória',
+										ui: {
+											itemProps: (item) => ({
+												label: item.text || 'Bez názvu'
+											})
+										},
+										fields: [
+											{
+												type: 'string',
+												name: 'text',
+												label: 'Text odkazu',
+												required: true
+											},
+											{
+												type: 'object',
+												name: 'links',
+												label: 'Odkaz',
+												list: true,
+												ui: {
+													itemProps: (item) => ({
+														label: item.text || 'Bez názvu'
+													})
+												},
+												fields: [
+													{
+														type: 'string',
+														name: 'text',
+														label: 'Text odkazu',
+														required: true
+													},
+													{
+														type: 'reference',
+														name: 'page',
+														label: 'Stránka',
+														collections: ['pages']
+													}
+												]
+											}
+										]
+									}
+								]
+							}
+						]
+					},
+					{
+						name: 'socialMenu',
+						label: 'Sociálne siete',
+						fields: [
+							{
+								type: 'string',
+								name: 'title',
+								label: 'Menu',
+								isTitle: true,
+								required: true
+							},
+							{
+								type: 'object',
+								name: 'links',
+								label: 'Odkaz',
+								list: true,
+								ui: {
+									itemProps: (item) => ({
+										label: item.text || 'Bez názvu'
+									})
+								},
+								fields: [
+									{
+										type: 'string',
+										name: 'text',
+										label: 'Názov odkazu',
+										required: true
+									},
+									{
+										type: 'image',
+										name: 'image',
+										label: 'Ikonka',
+										required: true
+									},
+									{
+										type: 'string',
+										name: 'url',
+										label: 'URL odkazu',
+										required: true
+									}
+								]
+							}
+						]
+					}
+				]
+			}
 		]
 	}
 });

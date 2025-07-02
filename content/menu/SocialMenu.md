@@ -9,4 +9,3 @@ links:
     url: instagram.com
 _template: socialMenu
 ---
-

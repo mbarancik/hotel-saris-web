@@ -9,6 +9,6 @@ export async function load() {
 
 	return {
 		pages: pages,
-		menu: menu,
+		menu: menu
 	};
 }

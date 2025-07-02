@@ -1,20 +1,32 @@
 <script lang="ts">
 	import LightboxModal from '$lib/LightboxModal.svelte';
-
-	// export let data;
+	import { onMount } from 'svelte';
 
 	let lightboxImgUrl = $state('');
-</script>
 
-<!-- <div class="pages">
-  {#each data.pages as page}
-    {#if page && page.node}
-      <article>
-        <h2><a href="/{page.node._sys.relativePath.slice(0, -3)}">{page.node.title}</a></h2>
-      </article>
-    {/if}
-  {/each}
-</div> -->
+	onMount(() => {
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('animate');
+					}
+				});
+			},
+			{
+				threshold: 0.2,
+				rootMargin: '0px 0px -50px 0px'
+			}
+		);
+
+		const animatedElements = document.querySelectorAll(
+			'.vertical-l, .horizontal-l, .hero-content-inner, .text-inner, .gallery'
+		);
+		animatedElements.forEach((el) => observer.observe(el));
+
+		return () => observer.disconnect();
+	});
+</script>
 
 {#if lightboxImgUrl}
 	<LightboxModal imgUrl={lightboxImgUrl} close={() => (lightboxImgUrl = '')} />
@@ -196,6 +208,10 @@
 		padding: 2rem;
 		border-left: 1px solid var(--tertiary-border);
 		border-right: 1px solid var(--tertiary-border);
+		height: 4rem;
+	}
+
+	:global(.hero-content-inner.animate) {
 		animation: vertical-l 2s ease-in-out forwards;
 	}
 
@@ -221,9 +237,14 @@
 		height: 100%;
 		border-left: 1px solid var(--tertiary-border);
 		border-right: 1px solid var(--tertiary-border);
-		animation: vertical-l-mask 2s ease-in-out forwards;
+
 		mask-image: linear-gradient(to bottom, white 100%, transparent 0%);
 		mask-repeat: no-repeat;
+		mask-size: 100% 0%;
+	}
+
+	:global(.vertical-l.animate) {
+		animation: vertical-l-mask 2s ease-in-out forwards;
 	}
 
 	.hero .vertical-l {
@@ -241,8 +262,11 @@
 
 	.horizontal-l {
 		height: 1px;
-		width: 0%;
+		width: 0;
 		background-color: var(--tertiary-border);
+	}
+
+	:global(.horizontal-l.animate) {
 		animation: horizontal-l 2s ease-in-out forwards;
 	}
 
@@ -264,43 +288,12 @@
 		gap: 2rem;
 		justify-content: flex-end;
 		animation: none;
+		height: auto;
 	}
 
 	/* Articles */
 
 	.bg {
-		/* background: linear-gradient(
-      135deg,
-      var(--primary) 0%,
-      var(--secondary) 100%
-    ); */
-		/* background:
-    radial-gradient(
-      circle at 5% 10%,
-      #61584b30 0%,
-      transparent 30%
-    ),
-    radial-gradient(
-      circle at 80% 90%,
-      #61584b30 0%,
-      transparent 30%
-    ),
-    radial-gradient(
-      circle at 50% 50%,
-      #61584b30 0%,
-      transparent 30%
-    ),
-    radial-gradient(
-      circle at 30% 70%,
-      #61584b30 0%,
-      transparent 30%
-    ),
-    radial-gradient(
-      circle at 70% 30%,
-      #61584b30 0%,
-      transparent 30%
-    ),
-    var(--secondary); */
 		background-color: var(--primary);
 		padding: 20vh 0;
 		overflow-x: hidden;
@@ -331,11 +324,6 @@
 		grid-template-columns: 1fr;
 		padding: 1rem;
 		z-index: 3;
-		/* background: radial-gradient(
-      closest-side at center,
-      #61584b20 60%,
-      transparent 80%
-    ); */
 	}
 
 	.text h1 {
@@ -347,8 +335,6 @@
 		background: radial-gradient(var(--tertiary) 0%, var(--tertiary-semi) 80%);
 		background-clip: text;
 		-webkit-text-fill-color: transparent;
-
-		/* text-shadow: 0 0 2rem #61584b70; */
 	}
 
 	.text p {
@@ -377,6 +363,11 @@
 		position: relative;
 		width: fit-content;
 		justify-self: center;
+	}
+
+	:global(.gallery.animate) {
+		transform: translateY(0);
+		opacity: 1;
 	}
 
 	.gallery::before {
@@ -428,8 +419,40 @@
 		cursor: pointer;
 		overflow: hidden;
 		transition:
-			transform 0.15s ease,
-			box-shadow 0.15s ease;
+			transform 0.8s ease-out,
+			opacity 0.8s ease-out;
+
+		transform: translateY(50px);
+		opacity: 0;
+	}
+
+	:global(.gallery.animate) button {
+		transform: translateY(0);
+		opacity: 1;
+	}
+
+	:global(.gallery.animate) button:nth-child(1) {
+		transition-delay: 0s;
+	}
+
+	:global(.gallery.animate) button:nth-child(2) {
+		transition-delay: 0.4s;
+	}
+
+	:global(.gallery.animate) button:nth-child(3) {
+		transition-delay: 0.8s;
+	}
+
+	:global(.gallery.animate) button:nth-child(4) {
+		transition-delay: 1.2s;
+	}
+
+	:global(.gallery.animate) button:nth-child(5) {
+		transition-delay: 1.6s;
+	}
+
+	:global(.gallery.animate) button:nth-child(n + 6) {
+		transition-delay: 2s;
 	}
 
 	.gallery img {
@@ -444,6 +467,11 @@
 	.gallery button:hover {
 		transform: scale(1.01);
 		box-shadow: 0 0 2rem #61584b20;
+		transition-duration: 0.15s;
+	}
+
+	:global(.gallery.animate) button:hover {
+		transform: translateY(0) scale(1.01);
 	}
 
 	/* Multiple images */
