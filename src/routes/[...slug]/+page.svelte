@@ -2,10 +2,34 @@
 	import LightboxModal from '$lib/LightboxModal.svelte';
 	import parseContentToHtml from '$lib/parseToHtml';
 	import { language } from '$lib/stores/language';
+	import { onMount } from 'svelte';
 
 	let { data } = $props();
 
 	let lightboxImgUrl = $state('');
+
+	onMount(() => {
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('animate');
+					}
+				});
+			},
+			{
+				threshold: 0.2,
+				rootMargin: '0px 0px -50px 0px'
+			}
+		);
+
+		const animatedElements = document.querySelectorAll(
+			'.vertical-l, .horizontal-l, .hero-content-inner, .text-inner, .gallery'
+		);
+		animatedElements.forEach((el) => observer.observe(el));
+
+		return () => observer.disconnect();
+	});
 </script>
 
 {#if lightboxImgUrl}
@@ -116,6 +140,10 @@
 		padding: 2rem;
 		border-left: 1px solid var(--tertiary-border);
 		border-right: 1px solid var(--tertiary-border);
+		height: 4rem;
+	}
+
+	:global(.hero-content-inner.animate) {
 		animation: vertical-l 2s ease-in-out forwards;
 	}
 
@@ -141,9 +169,14 @@
 		height: 100%;
 		border-left: 1px solid var(--tertiary-border);
 		border-right: 1px solid var(--tertiary-border);
-		animation: vertical-l-mask 2s ease-in-out forwards;
+
 		mask-image: linear-gradient(to bottom, white 100%, transparent 0%);
 		mask-repeat: no-repeat;
+		mask-size: 100% 0%;
+	}
+
+	:global(.vertical-l.animate) {
+		animation: vertical-l-mask 2s ease-in-out forwards;
 	}
 
 	.hero .vertical-l {
@@ -163,6 +196,9 @@
 		height: 1px;
 		width: 0%;
 		background-color: var(--tertiary-border);
+	}
+
+	:global(.horizontal-l.animate) {
 		animation: horizontal-l 2s ease-in-out forwards;
 	}
 
@@ -242,6 +278,11 @@
 		justify-self: center;
 	}
 
+	:global(.gallery.animate) {
+		transform: translateY(0);
+		opacity: 1;
+	}
+
 	.gallery::before {
 		content: '';
 		display: block;
@@ -277,8 +318,40 @@
 		cursor: pointer;
 		overflow: hidden;
 		transition:
-			transform 0.15s ease,
-			box-shadow 0.15s ease;
+			transform 0.8s ease-out,
+			opacity 0.8s ease-out;
+
+		transform: translateY(50px);
+		opacity: 0;
+	}
+
+	:global(.gallery.animate) button {
+		transform: translateY(0);
+		opacity: 1;
+	}
+
+	:global(.gallery.animate) button:nth-child(1) {
+		transition-delay: 0s;
+	}
+
+	:global(.gallery.animate) button:nth-child(2) {
+		transition-delay: 0.4s;
+	}
+
+	:global(.gallery.animate) button:nth-child(3) {
+		transition-delay: 0.8s;
+	}
+
+	:global(.gallery.animate) button:nth-child(4) {
+		transition-delay: 1.2s;
+	}
+
+	:global(.gallery.animate) button:nth-child(5) {
+		transition-delay: 1.6s;
+	}
+
+	:global(.gallery.animate) button:nth-child(n + 6) {
+		transition-delay: 2s;
 	}
 
 	.gallery img {
@@ -293,6 +366,11 @@
 	.gallery button:hover {
 		transform: scale(1.01);
 		box-shadow: 0 0 2rem #61584b20;
+		transition-duration: 0.15s;
+	}
+
+	:global(.gallery.animate) button:hover {
+		transform: translateY(0) scale(1.01);
 	}
 
 	/* Multiple images */
