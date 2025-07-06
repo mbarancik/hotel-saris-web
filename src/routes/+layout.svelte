@@ -1,5 +1,7 @@
 <script lang="ts">
 	import '../app.css';
+	import { language } from '$lib/stores/language';
+	import { onMount } from 'svelte';
 
 	let { children, data } = $props();
 
@@ -8,6 +10,15 @@
 		data?.menu?.find((item) => item?.node?._sys?.filename === 'NavMenu')?.node?.links || [];
 	const socialMenu =
 		data?.menu?.find((item) => item?.node?._sys?.filename === 'SocialMenu')?.node?.links || [];
+
+	// Initialize language store from localStorage on mount
+	onMount(() => {
+		language.init();
+	});
+
+	function changeLanguage(lang: 'sk' | 'en') {
+		language.set(lang);
+	}
 </script>
 
 <div class="fixed top-0 left-0 z-100 flex w-full justify-center">
@@ -34,6 +45,16 @@
 				{/if}
 			{/each}
 
+			<span class="flyout-trigger">
+				<span class="flyout-title">
+					<span class="material-symbols-outlined"> language </span>
+				</span>
+				<div class="flyout">
+					<button onclick={() => changeLanguage('sk')}>Slovensky</button>
+					<button onclick={() => changeLanguage('en')}>English</button>
+				</div>
+			</span>
+
 			{#each socialMenu as socialItem}
 				{#if socialItem?.__typename === 'MenuSocialMenuLinks'}
 					<a href={socialItem?.url}>
@@ -41,8 +62,6 @@
 					</a>
 				{/if}
 			{/each}
-
-			<span class="material-symbols-outlined"> language </span>
 		</nav>
 	</header>
 </div>
@@ -139,7 +158,8 @@
 	}
 
 	a:hover,
-	.flyout-trigger:hover .flyout-title {
+	.flyout-trigger:hover .flyout-title,
+	.flyout button:hover {
 		text-shadow: 0 0 1rem var(--tertiary);
 		color: white;
 	}
@@ -197,5 +217,10 @@
 	.flyout:hover {
 		mask-size: 100% 100%;
 		pointer-events: all;
+	}
+
+	.flyout button {
+		cursor: pointer;
+		text-align: left;
 	}
 </style>

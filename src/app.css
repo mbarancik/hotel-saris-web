@@ -23,6 +23,10 @@
 	font-weight: 300;
 }
 
+body {
+	background-color: var(--primary);
+}
+
 .text-body > * {
 	color: white;
 	margin-top: 1rem;

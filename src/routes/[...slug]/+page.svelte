@@ -1,6 +1,7 @@
 <script lang="ts">
 	import LightboxModal from '$lib/LightboxModal.svelte';
 	import parseContentToHtml from '$lib/parseToHtml';
+	import { language } from '$lib/stores/language';
 
 	let { data } = $props();
 
@@ -20,7 +21,7 @@
 
 		<div class="hero-content-inner">
 			<h1>
-				{data.page.title}
+				{$language === 'sk' ? data.page.title : data.page.enTitle}
 			</h1>
 		</div>
 
@@ -42,9 +43,9 @@
 					<div class="horizontal-l"></div>
 				</div>
 				<div class="text-inner">
-					<h1>{body?.title}</h1>
+					<h1>{$language === 'sk' ? body?.title : body?.enTitle}</h1>
 					<div class="text-body">
-						{@html parseContentToHtml(body?.text)}
+						{@html parseContentToHtml($language === 'sk' ? body?.text : body?.enText)}
 					</div>
 					{#if body?.buttons}
 						<div class="mt-4 flex gap-4">
@@ -59,7 +60,7 @@
 											: '#'}
 									class="primary-btn"
 								>
-									{button?.text}
+									{$language === 'sk' ? button?.text : button?.enText}
 								</a>
 							{/each}
 						</div>

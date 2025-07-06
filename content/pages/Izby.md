@@ -1,6 +1,5 @@
 ---
 title: Izby
-category: Ubytovanie
 image: /media/pexels-evonics-1058277.jpg
 body:
   - title: Popis izieb

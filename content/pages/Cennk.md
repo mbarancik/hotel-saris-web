@@ -1,4 +1,3 @@
 ---
 title: Cenník
-category: Ubytovanie
 ---

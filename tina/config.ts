@@ -44,8 +44,8 @@ export default defineConfig({
 					},
 					{
 						type: 'string',
-						name: 'category',
-						label: 'Kategória'
+						name: 'enTitle',
+						label: 'Nadpis v angličtine',
 					},
 					{
 						type: 'image',
@@ -69,6 +69,11 @@ export default defineConfig({
 								label: 'Nadpis'
 							},
 							{
+								type: 'string',
+								name: 'enTitle',
+								label: 'Nadpis v angličtine'
+							},
+							{
 								type: 'image',
 								name: 'gallery',
 								label: 'Obrázky',
@@ -78,6 +83,12 @@ export default defineConfig({
 								type: 'rich-text',
 								name: 'text',
 								label: 'Text',
+								isBody: true
+							},
+							{
+								type: 'rich-text',
+								name: 'enText',
+								label: 'Text v angličtine',
 								isBody: true
 							},
 							{
@@ -101,6 +112,11 @@ export default defineConfig({
 												label: 'Text tlačidla'
 											},
 											{
+												type: 'string',
+												name: 'enText',
+												label: 'Text tlačidla v angličtine'
+											},
+											{
 												type: 'reference',
 												name: 'page',
 												label: 'Stránka',
@@ -121,6 +137,11 @@ export default defineConfig({
 												type: 'string',
 												name: 'text',
 												label: 'Text tlačidla'
+											},
+											{
+												type: 'string',
+												name: 'enText',
+												label: 'Text tlačidla v angličtine'
 											},
 											{
 												type: 'string',
@@ -180,6 +201,11 @@ export default defineConfig({
 												required: true
 											},
 											{
+												type: 'string',
+												name: 'enText',
+												label: 'Text odkazu v angličtine',
+											},
+											{
 												type: 'reference',
 												name: 'page',
 												label: 'Stránka',
@@ -203,6 +229,11 @@ export default defineConfig({
 												required: true
 											},
 											{
+												type: 'string',
+												name: 'enText',
+												label: 'Text odkazu v angličtine',
+											},
+											{
 												type: 'object',
 												name: 'links',
 												label: 'Odkaz',
@@ -218,6 +249,11 @@ export default defineConfig({
 														name: 'text',
 														label: 'Text odkazu',
 														required: true
+													},
+													{
+														type: 'string',
+														name: 'enText',
+														label: 'Text odkazu v angličtine',
 													},
 													{
 														type: 'reference',
