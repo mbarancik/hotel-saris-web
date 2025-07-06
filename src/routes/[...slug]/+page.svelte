@@ -30,6 +30,19 @@
 
 		return () => observer.disconnect();
 	});
+
+	const handleHref = (button: any) => {
+		if (button.__typename?.endsWith('PageButton')) {
+			return button.page?._sys.filename || '#';
+		} else if (button.__typename?.endsWith('UrlButton')) {
+			// Check if the URL starts with http:// or https://
+			if (button.url && !/^https?:\/\//i.test(button.url)) {
+				return 'https://' + button.url;
+			}
+			return button.url || '#';
+		}
+		return '#'; // Default fallback URL
+	};
 </script>
 
 {#if lightboxImgUrl}
@@ -74,16 +87,7 @@
 					{#if body?.buttons}
 						<div class="mt-4 flex gap-4">
 							{#each body?.buttons || [] as button}
-								<a
-									href={button?.__typename === 'PagesBodyButtonsPageButton'
-										? button.page?._sys.filename
-										: button?.__typename === 'PagesBodyButtonsUrlButton'
-											? button.url?.substring(0, 4) === 'http'
-												? button.url
-												: 'https://' + button.url
-											: '#'}
-									class="primary-btn"
-								>
+								<a href={handleHref(button)} class="primary-btn">
 									{$language === 'sk' ? button?.text : button?.enText}
 								</a>
 							{/each}
@@ -250,10 +254,7 @@
 		line-height: 1.2;
 		font-weight: 800;
 		letter-spacing: -0.05rem;
-
-		background: radial-gradient(var(--tertiary) 0%, var(--tertiary-semi) 80%);
-		background-clip: text;
-		-webkit-text-fill-color: transparent;
+		color: var(--tertiary);
 	}
 
 	.text .vertical-l {
