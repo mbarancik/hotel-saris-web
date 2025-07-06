@@ -1,6 +1,10 @@
 <script lang="ts">
 	import LightboxModal from '$lib/LightboxModal.svelte';
+	import parseContentToHtml from '$lib/parseToHtml';
+	import { language } from '$lib/stores/language';
 	import { onMount } from 'svelte';
+
+	let { data } = $props();
 
 	let lightboxImgUrl = $state('');
 
@@ -40,21 +44,31 @@
 		</div>
 
 		<div class="hero-content-inner">
-			<h1>Hotel v centre historického Bardejova</h1>
+			<h1>
+				{$language === 'sk' ? data.homepage?.title : data.homepage?.enTitle}
+			</h1>
 		</div>
 
 		<div class="horizontal-l"></div>
 
-		<div class="hero-content-inner hero-btns">
-			<button class="primary-btn">
-				<span class="material-symbols-outlined"> calendar_month </span>
-				Rezervovať
-			</button>
-			<button class="primary-btn">
-				<span class="material-symbols-outlined"> restaurant </span>
-				Denné menu
-			</button>
-		</div>
+		{#if data.homepage?.buttons}
+			<div class="hero-content-inner hero-btns">
+				{#each data.homepage?.buttons || [] as button}
+					<a
+						href={button?.__typename === 'HomepageButtonsPageButton'
+							? button.page?._sys.filename
+							: button?.__typename === 'HomepageButtonsUrlButton'
+								? button.url?.substring(0, 4) === 'http'
+									? button.url
+									: 'https://' + button.url
+								: '#'}
+						class="primary-btn"
+					>
+						{$language === 'sk' ? button?.text : button?.enText}
+					</a>
+				{/each}
+			</div>
+		{/if}
 
 		<div>
 			<div class="horizontal-l"></div>
@@ -62,118 +76,57 @@
 		</div>
 	</div>
 
-	<img src="media/saris3.jpg" alt="" />
+	<img src={data.homepage?.image} alt="" />
 </section>
 
 <section class="bg">
-	<article>
-		<div class="text">
-			<div>
-				<div class="vertical-l"></div>
-				<div class="horizontal-l"></div>
+	{#each data.homepage?.body || [] as body}
+		<article>
+			<div class="text">
+				<div>
+					<div class="vertical-l"></div>
+					<div class="horizontal-l"></div>
+				</div>
+				<div class="text-inner">
+					<h1>{$language === 'sk' ? body?.title : body?.enTitle}</h1>
+					<div class="text-body">
+						{@html parseContentToHtml($language === 'sk' ? body?.text : body?.enText)}
+					</div>
+					{#if body?.buttons}
+						<div class="mt-4 flex gap-4">
+							{#each body?.buttons || [] as button}
+								<a
+									href={button?.__typename === 'HomepageBodyButtonsPageButton'
+										? button.page?._sys.filename
+										: button?.__typename === 'HomepageBodyButtonsUrlButton'
+											? button.url?.substring(0, 4) === 'http'
+												? button.url
+												: 'https://' + button.url
+											: '#'}
+									class="primary-btn"
+								>
+									{$language === 'sk' ? button?.text : button?.enText}
+								</a>
+							{/each}
+						</div>
+					{/if}
+				</div>
+				<div>
+					<div class="horizontal-l"></div>
+					<div class="vertical-l"></div>
+				</div>
 			</div>
-			<div class="text-inner">
-				<h1>O hoteli</h1>
-				<p>
-					Hotel Saris sa nachádza v centre historického mesta Bardejov, ktoré je zapísané na zozname
-					svetového kultúrneho dedičstva UNESCO. Hotel ponúka komfortné ubytovanie, reštauráciu s
-					tradičnou slovenskou kuchyňou a moderné konferenčné priestory.
-				</p>
-			</div>
-			<div>
-				<div class="horizontal-l"></div>
-				<div class="vertical-l"></div>
-			</div>
-		</div>
-		<div class="gallery">
-			<button onclick={(e) => (lightboxImgUrl = (e.target as HTMLImageElement)?.src || '')}>
-				<img src="media/pexels-evonics-1058277.jpg" alt="" />
-			</button>
-		</div>
-	</article>
-
-	<article>
-		<div class="text">
-			<div>
-				<div class="vertical-l"></div>
-				<div class="horizontal-l"></div>
-			</div>
-			<div class="text-inner">
-				<h1>Ubytovanie</h1>
-				<p>
-					Hotel Saris ponúka rôzne typy izieb, od štandardných jedno- a dvojlôžkových izieb až po
-					luxusné apartmány. Všetky izby sú vybavené moderným nábytkom, Wi-Fi pripojením a TV.
-				</p>
-			</div>
-			<div>
-				<div class="horizontal-l"></div>
-				<div class="vertical-l"></div>
-			</div>
-		</div>
-		<div class="gallery">
-			<button onclick={(e) => (lightboxImgUrl = (e.target as HTMLImageElement)?.src || '')}>
-				<img src="media/saris4.jpg" alt="" />
-			</button>
-		</div>
-	</article>
-
-	<article>
-		<div class="text">
-			<div>
-				<div class="vertical-l"></div>
-				<div class="horizontal-l"></div>
-			</div>
-			<div class="text-inner">
-				<h1>Gastronómia</h1>
-				<p>
-					Reštaurácia hotela Saris ponúka široký výber jedál z tradičnej slovenskej kuchyne, ako aj
-					medzinárodné špeciality. Hostia si môžu vychutnať jedlo v príjemnom prostredí s výhľadom
-					na historické centrum mesta.
-				</p>
-			</div>
-			<div>
-				<div class="horizontal-l"></div>
-				<div class="vertical-l"></div>
-			</div>
-		</div>
-		<div class="gallery">
-			<button onclick={(e) => (lightboxImgUrl = (e.target as HTMLImageElement)?.src || '')}>
-				<img src="media/saris zenich nevesta.jpg" alt="" />
-			</button>
-		</div>
-	</article>
-
-	<article>
-		<div class="text">
-			<div>
-				<div class="vertical-l"></div>
-				<div class="horizontal-l"></div>
-			</div>
-			<div class="text-inner">
-				<h1>Aktivity</h1>
-				<p>
-					V blízkosti hotela sa nachádzajú rôzne turistické a cyklistické trasy, ako aj historické
-					pamiatky. Hostia môžu navštíviť Bardejovské kúpele, ktoré sú známe svojimi liečivými
-					prameňmi.
-				</p>
-			</div>
-			<div>
-				<div class="horizontal-l"></div>
-				<div class="vertical-l"></div>
-			</div>
-		</div>
-		<div class="gallery">
-			<button onclick={(e) => (lightboxImgUrl = (e.target as HTMLImageElement)?.src || '')}>
-				<img src="media/pexels-evonics-1058277.jpg" alt="" />
-			</button>
-			<button onclick={(e) => (lightboxImgUrl = (e.target as HTMLImageElement)?.src || '')}>
-				<img src="media/pexels-evonics-1058277.jpg" alt="" />
-			</button>
-			<button onclick={(e) => (lightboxImgUrl = (e.target as HTMLImageElement)?.src || '')}>
-				<img src="media/pexels-evonics-1058277.jpg" alt="" />
-			</button>
-		</div>
-	</article>
+			{#if body?.gallery}
+				<div class="gallery">
+					{#each body?.gallery || [] as img}
+						<button onclick={(e) => (lightboxImgUrl = (e.target as HTMLImageElement)?.src || '')}>
+							<img src={img} alt="" />
+						</button>
+					{/each}
+				</div>
+			{/if}
+		</article>
+	{/each}
 </section>
 
 <style>
@@ -335,12 +288,6 @@
 		background: radial-gradient(var(--tertiary) 0%, var(--tertiary-semi) 80%);
 		background-clip: text;
 		-webkit-text-fill-color: transparent;
-	}
-
-	.text p {
-		font-size: 1.1rem;
-		line-height: 1.8;
-		color: white;
 	}
 
 	.text .vertical-l {
@@ -541,10 +488,6 @@
 
 		.text h1 {
 			font-size: 2.5rem;
-		}
-
-		.text p {
-			font-size: 1.1rem;
 		}
 
 		.gallery {

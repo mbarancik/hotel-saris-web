@@ -45,7 +45,7 @@ export default defineConfig({
 					{
 						type: 'string',
 						name: 'enTitle',
-						label: 'Nadpis v angličtine',
+						label: 'Nadpis v angličtine'
 					},
 					{
 						type: 'image',
@@ -203,7 +203,7 @@ export default defineConfig({
 											{
 												type: 'string',
 												name: 'enText',
-												label: 'Text odkazu v angličtine',
+												label: 'Text odkazu v angličtine'
 											},
 											{
 												type: 'reference',
@@ -231,7 +231,7 @@ export default defineConfig({
 											{
 												type: 'string',
 												name: 'enText',
-												label: 'Text odkazu v angličtine',
+												label: 'Text odkazu v angličtine'
 											},
 											{
 												type: 'object',
@@ -253,7 +253,7 @@ export default defineConfig({
 													{
 														type: 'string',
 														name: 'enText',
-														label: 'Text odkazu v angličtine',
+														label: 'Text odkazu v angličtine'
 													},
 													{
 														type: 'reference',
@@ -308,6 +308,199 @@ export default defineConfig({
 										name: 'url',
 										label: 'URL odkazu',
 										required: true
+									}
+								]
+							}
+						]
+					}
+				]
+			},
+			{
+				name: 'homepage',
+				path: 'content/homepage',
+				label: 'Domovská stránka',
+				ui: {
+					allowedActions: {
+						delete: false,
+						createNestedFolder: false
+					}
+				},
+				fields: [
+					{
+						type: 'string',
+						name: 'title',
+						label: 'Nadpis',
+						isTitle: true,
+						required: true
+					},
+					{
+						type: 'string',
+						name: 'enTitle',
+						label: 'Nadpis v angličtine'
+					},
+					{
+						type: 'image',
+						name: 'image',
+						label: 'Titulný obrázok'
+					},
+					{
+						type: 'object',
+						name: 'buttons',
+						label: 'Tlačidlá',
+						list: true,
+						templates: [
+							{
+								name: 'pageButton',
+								label: 'Interný odkaz na stránku',
+								ui: {
+									itemProps: (item) => ({
+										label: item.text || 'Bez názvu'
+									})
+								},
+								fields: [
+									{
+										type: 'string',
+										name: 'text',
+										label: 'Text tlačidla'
+									},
+									{
+										type: 'string',
+										name: 'enText',
+										label: 'Text tlačidla v angličtine'
+									},
+									{
+										type: 'reference',
+										name: 'page',
+										label: 'Stránka',
+										collections: ['pages']
+									}
+								]
+							},
+							{
+								name: 'urlButton',
+								label: 'Externý odkaz na URL',
+								ui: {
+									itemProps: (item) => ({
+										label: item.text || 'Bez názvu'
+									})
+								},
+								fields: [
+									{
+										type: 'string',
+										name: 'text',
+										label: 'Text tlačidla'
+									},
+									{
+										type: 'string',
+										name: 'enText',
+										label: 'Text tlačidla v angličtine'
+									},
+									{
+										type: 'string',
+										name: 'url',
+										label: 'Odkaz'
+									}
+								]
+							}
+						]
+					},
+					{
+						type: 'object',
+						name: 'body',
+						label: 'Obsah',
+						list: true,
+						ui: {
+							itemProps: (item) => ({
+								label: item.title || 'Bez názvu'
+							})
+						},
+						fields: [
+							{
+								type: 'string',
+								name: 'title',
+								label: 'Nadpis'
+							},
+							{
+								type: 'string',
+								name: 'enTitle',
+								label: 'Nadpis v angličtine'
+							},
+							{
+								type: 'image',
+								name: 'gallery',
+								label: 'Obrázky',
+								list: true
+							},
+							{
+								type: 'rich-text',
+								name: 'text',
+								label: 'Text',
+								isBody: true
+							},
+							{
+								type: 'rich-text',
+								name: 'enText',
+								label: 'Text v angličtine',
+								isBody: true
+							},
+							{
+								type: 'object',
+								name: 'buttons',
+								label: 'Tlačidlá',
+								list: true,
+								templates: [
+									{
+										name: 'pageButton',
+										label: 'Interný odkaz na stránku',
+										ui: {
+											itemProps: (item) => ({
+												label: item.text || 'Bez názvu'
+											})
+										},
+										fields: [
+											{
+												type: 'string',
+												name: 'text',
+												label: 'Text tlačidla'
+											},
+											{
+												type: 'string',
+												name: 'enText',
+												label: 'Text tlačidla v angličtine'
+											},
+											{
+												type: 'reference',
+												name: 'page',
+												label: 'Stránka',
+												collections: ['pages']
+											}
+										]
+									},
+									{
+										name: 'urlButton',
+										label: 'Externý odkaz na URL',
+										ui: {
+											itemProps: (item) => ({
+												label: item.text || 'Bez názvu'
+											})
+										},
+										fields: [
+											{
+												type: 'string',
+												name: 'text',
+												label: 'Text tlačidla'
+											},
+											{
+												type: 'string',
+												name: 'enText',
+												label: 'Text tlačidla v angličtine'
+											},
+											{
+												type: 'string',
+												name: 'url',
+												label: 'Odkaz'
+											}
+										]
 									}
 								]
 							}
