@@ -175,10 +175,10 @@
 	.hero-content-inner h1 {
 		font-family: 'Gloock', serif;
 		color: var(--tertiary);
-		font-size: 5.5rem;
+		font-size: max(5vw, 3rem);
 		font-weight: 400;
-		letter-spacing: -0.15rem;
-		line-height: 6.5rem;
+		letter-spacing: -0.1rem;
+		line-height: 110%;
 	}
 
 	.vertical-l {
@@ -249,13 +249,17 @@
 
 	article {
 		display: grid;
-		grid-template-columns: 1fr 1fr;
+		grid-template-columns: 1fr;
 		gap: 2rem;
 		max-width: 1500px;
 		margin: 0 auto 20vh auto;
 		padding: 0 2rem;
 		min-height: 400px;
 		max-height: 80vh;
+	}
+
+	article:has(.gallery) {
+		grid-template-columns: 1fr 1fr;
 	}
 
 	article:nth-child(even) .text {
@@ -276,7 +280,7 @@
 
 	.text h1 {
 		font-family: 'Gloock', serif;
-		font-size: 5rem;
+		font-size: 3.5rem;
 		font-weight: 800;
 		letter-spacing: -0.05rem;
 		color: var(--tertiary);
@@ -375,23 +379,23 @@
 	}
 
 	:global(.gallery.animate) button:nth-child(2) {
-		transition-delay: 0.4s;
+		transition-delay: 0.2s;
 	}
 
 	:global(.gallery.animate) button:nth-child(3) {
-		transition-delay: 0.8s;
+		transition-delay: 0.4s;
 	}
 
 	:global(.gallery.animate) button:nth-child(4) {
-		transition-delay: 1.2s;
+		transition-delay: 0.6s;
 	}
 
 	:global(.gallery.animate) button:nth-child(5) {
-		transition-delay: 1.6s;
+		transition-delay: 0.8s;
 	}
 
 	:global(.gallery.animate) button:nth-child(n + 6) {
-		transition-delay: 2s;
+		transition-delay: 1s;
 	}
 
 	.gallery img {
@@ -457,15 +461,42 @@
 	}
 
 	/* Responsive design */
-	@media (max-width: 768px) {
+	@media (max-width: 1000px) {
+		/* Hero Section */
+		.hero {
+			height: 100vh;
+			grid-template-columns: 1fr;
+			grid-template-rows: 55% 1fr;
+		}
+
+		.hero-content-inner {
+			padding: 1rem;
+		}
+
+		.hero-content-inner h1 {
+			font-size: 3rem;
+			line-height: 3.5rem;
+			letter-spacing: normal;
+			text-align: center;
+		}
+
+		.hero-btns {
+			justify-content: center;
+			gap: 1rem;
+			flex-wrap: wrap;
+		}
+
+		/* Articles */
 		article {
 			grid-template-columns: 1fr;
 			gap: 2rem;
-			margin-bottom: 4rem;
+			margin-bottom: 10vh;
 			min-height: auto;
+			max-height: none;
+			padding: 0 1rem;
 		}
 
-		article:nth-child(even) {
+		article:has(.gallery) {
 			grid-template-columns: 1fr;
 		}
 
@@ -475,15 +506,98 @@
 		}
 
 		.text {
-			padding: 1rem;
+			padding: 0.5rem;
 		}
 
 		.text h1 {
 			font-size: 2.5rem;
+			text-align: center;
+		}
+
+		.text .vertical-l {
+			margin: 0 1rem;
+		}
+
+		.text-inner {
+			margin: 0 1rem;
+			padding: 1.5rem;
+		}
+
+		/* Gallery */
+		.gallery {
+			min-height: 250px;
+			width: 100%;
+			justify-self: stretch;
+		}
+
+		.gallery::before,
+		article:nth-child(even) .gallery::before {
+			width: 8vh;
+			height: 8vh;
+			top: -5%;
+			left: -5%;
+		}
+
+		.gallery::after,
+		article:nth-child(even) .gallery::after {
+			width: 5vh;
+			height: 5vh;
+			bottom: -5%;
+			right: -5%;
+		}
+
+		/* Multiple images mobile adjustments */
+		.gallery:has(button:nth-child(n + 4)) {
+			grid-template-columns: 1fr 1fr;
+			grid-template-rows: repeat(auto-fit, 1fr);
+		}
+
+		.gallery:has(button:nth-child(n + 5)) {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (max-width: 480px) {
+		/* Extra small screens */
+		.hero-content-inner {
+			margin: 0 0.5rem;
+			padding: 0.5rem;
+		}
+
+		.hero-content-inner h1 {
+			font-size: 2.5rem;
+			line-height: 3rem;
+		}
+
+		.hero .vertical-l {
+			margin: 0 0.5rem;
+		}
+
+		.text h1 {
+			font-size: 2rem;
+		}
+
+		.text .vertical-l {
+			margin: 0 0.5rem;
+		}
+
+		.text-inner {
+			margin: 0 0.5rem;
+			padding: 1rem;
+		}
+
+		.hero-btns {
+			gap: 0.5rem;
 		}
 
 		.gallery {
-			min-height: 250px;
+			min-height: 200px;
 		}
+
+		/* Force single column for very small galleries */
+		/* .gallery:has(button:nth-child(n + 3)) {
+			grid-template-columns: 1fr;
+		} */
 	}
+
 </style>

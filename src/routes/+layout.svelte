@@ -2,10 +2,10 @@
 	import '../app.css';
 	import { language } from '$lib/stores/language';
 	import { onMount } from 'svelte';
+	import { fade, fly } from 'svelte/transition';
 
 	let { children, data } = $props();
 
-	const pages = data?.pages || [];
 	const navMenu =
 		data?.menu?.find((item) => item?.node?._sys?.filename === 'NavMenu')?.node?.links || [];
 	const socialMenu =
@@ -19,13 +19,18 @@
 	function changeLanguage(lang: 'sk' | 'en') {
 		language.set(lang);
 	}
+
+	let isSidebarOpen = $state(false);
 </script>
 
-<div class="fixed top-0 left-0 z-100 flex w-full justify-center">
+<div class="desktop-header">
 	<header>
 		<a href="/" class="logo">
 			<img src="media/saris logo.png" alt="" />
 		</a>
+		<button class="open-sidebar-btn" onclick={() => (isSidebarOpen = true)}>
+			<span class="material-symbols-outlined"> menu </span>
+		</button>
 		<nav>
 			{#each navMenu as navItem}
 				{#if navItem?.__typename === 'MenuNavMenuLinksCategoryLink'}
@@ -66,10 +71,65 @@
 	</header>
 </div>
 
+{#if isSidebarOpen }
+	<div class="sidebar-backdrop" in:fade={{ duration: 200 }} out:fade={{ duration: 200 }}>
+		<div class="sidebar" in:fly={{ x: -300, duration: 300 }} out:fly={{ x: -300, duration: 300 }}>
+			<button class="close-sidebar-btn" onclick={() => (isSidebarOpen = false)}>
+				<span class="material-symbols-outlined"> close </span>
+			</button>
+			<nav>
+				<a href="/">Domov</a>
+				{#each navMenu as navItem}
+					{#if navItem?.__typename === 'MenuNavMenuLinksCategoryLink'}
+						<div class="category">
+							<span class="category-title">
+								{navItem?.text}
+							</span>
+							{#each navItem?.links || [] as page}
+								<a href="/{page?.page?._sys.filename}">— {page?.text}</a>
+							{/each}
+						</div>
+					{:else if navItem?.__typename === 'MenuNavMenuLinksPageLink'}
+						<a href="/{navItem?.page?._sys.filename}">{navItem?.text}</a>
+					{/if}
+				{/each}
+
+				<div class="category mt-8 mb-8">
+					<span class="category-title">
+						<span class="material-symbols-outlined"> language </span>
+					</span>
+					<button onclick={() => changeLanguage('sk')}>— Slovensky</button>
+					<button onclick={() => changeLanguage('en')}>— English</button>
+				</div>
+
+				<div class="social-menu">
+					{#each socialMenu as socialItem}
+						{#if socialItem?.__typename === 'MenuSocialMenuLinks'}
+							<a href={socialItem?.url}>
+								<img src={socialItem?.image} alt="" class="social-icon" />
+							</a>
+						{/if}
+					{/each}
+				</div>
+			</nav>
+		</div>
+	</div>
+{/if}
+
 {@render children()}
 
 <style>
-	header {
+	.desktop-header {
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 99;
+		width: 100%;
+		display: flex;
+		justify-content: center;
+	}
+
+	.desktop-header header {
 		max-width: 500rem;
 		height: 4.5rem;
 		display: flex;
@@ -92,7 +152,7 @@
 		font-size: 1rem;
 	}
 
-	header::after {
+	.desktop-header header::after {
 		content: '';
 		position: absolute;
 		height: calc(100% - 0.5rem);
@@ -102,7 +162,7 @@
 		pointer-events: none;
 	}
 
-	header::before {
+	.desktop-header header::before {
 		content: '';
 		position: absolute;
 		height: calc(100% + 2px);
@@ -121,24 +181,25 @@
 		filter: drop-shadow(0 0.2rem 0.3rem #10101080);
 	}
 
-	.logo {
+	.desktop-header .logo {
 		height: 100%;
 		width: auto;
 	}
 
-	.logo img {
+	.desktop-header .logo img {
 		height: 100%;
 		width: auto;
 		float: center;
 		filter: sepia(45%) saturate(637%) hue-rotate(308deg) brightness(80%) contrast(96%);
 		padding: 1rem 0;
+		object-fit: contain;
 	}
 
 	.logo:hover {
 		filter: drop-shadow(0 0 0.4rem var(--tertiary-semi)) brightness(10);
 	}
 
-	nav {
+	.desktop-header nav {
 		height: 100%;
 		display: flex;
 		align-items: center;
@@ -147,8 +208,8 @@
 		position: relative;
 	}
 
-	nav > a,
-	.flyout-trigger {
+	.desktop-header nav > a,
+	.desktop-header .flyout-trigger {
 		text-decoration: none;
 		transition:
 			text-shadow 0.15s ease-in-out,
@@ -157,9 +218,9 @@
 		padding: 1.5rem 0;
 	}
 
-	a:hover,
-	.flyout-trigger:hover .flyout-title,
-	.flyout button:hover {
+	.desktop-header a:hover,
+	.desktop-header .flyout-trigger:hover .flyout-title,
+	.desktop-header .flyout button:hover {
 		text-shadow: 0 0 1rem var(--tertiary);
 		color: white;
 	}
@@ -222,5 +283,102 @@
 	.flyout button {
 		cursor: pointer;
 		text-align: left;
+	}
+
+	.open-sidebar-btn {
+		display: none;
+	}
+
+	.sidebar {
+		display: none;
+	}
+
+	/* Responsive */
+	@media (max-width: 1000px) {
+		.desktop-header header {
+			padding: 0 1rem;
+			margin: 0.5rem;
+		}
+
+		.desktop-header nav {
+			display: none;
+		}
+
+		.open-sidebar-btn {
+			display: flex;
+			cursor: pointer;
+		}
+
+		.close-sidebar-btn {
+			display: flex;
+			cursor: pointer;
+			background-color: var(--primary);
+			color: var(--tertiary);
+			width: fit-content;
+			border-radius: 100rem;
+			padding: 0.25rem;
+		}
+
+		.sidebar-backdrop {
+			position: fixed;
+			top: 0;
+			left: 0;
+			height: 100%;
+			width: 100%;
+			background-color: #61584b10;
+			backdrop-filter: blur(10px);
+			z-index: 100;
+		}
+
+		.sidebar {
+			position: fixed;
+			top: 0;
+			left: 0;
+			display: flex;
+			flex-direction: column;
+			gap: 1rem;
+			background: var(--tertiary);
+			height: 100vh;
+			min-width: 50vw;
+			padding: 1rem 2rem 1rem 1rem;
+		}
+
+		.sidebar nav {
+			display: flex;
+			flex-direction: column;
+			gap: 1rem;
+		}
+
+		.sidebar nav > a {
+			text-decoration: none;
+			transition:
+				text-shadow 0.15s ease-in-out,
+				color 0.15s ease-in-out;
+			color: var(--primary);
+		}
+
+		.sidebar .category {
+			display: flex;
+			flex-direction: column;
+			gap: 0.5rem;
+		}
+
+		.sidebar .category-title {
+			font-weight: bold;
+		}
+
+		.sidebar .category button {
+			text-align: left;
+		}
+
+		.sidebar .social-menu {
+			display: flex;
+			gap: 1rem;
+		}
+
+		.sidebar .social-icon {
+			height: 1.5rem;
+			width: auto;
+		}
 	}
 </style>
