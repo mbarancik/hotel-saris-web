@@ -1,0 +1,145 @@
+local_backend: true
+
+backend:
+  name: local
+  branch: decap-cms
+
+media_folder: "static/media"
+
+collections:
+  - name: "pages"
+    label: "Stránky"
+    folder: "content/pages"
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Nadpis", name: "title", widget: "string", required: true }
+      - { label: "Nadpis v angličtine", name: "enTitle", widget: "string", required: false }
+      - { label: "Titulný obrázok", name: "image", widget: "image", required: false }
+      - label: "Obsah"
+        name: "content"
+        widget: "list"
+        fields:
+          - { label: "Nadpis", name: "title", widget: "string", required: false }
+          - { label: "Nadpis v angličtine", name: "enTitle", widget: "string", required: false }
+          - { label: "Obrázky", name: "gallery", widget: "image", required: false, multiple: true }
+          - { label: "Text", name: "text", widget: "markdown", required: false }
+          - { label: "Text v angličtine", name: "enText", widget: "markdown", required: false }
+          - label: "Tlačidlá"
+            name: "buttons"
+            widget: "list"
+            types:
+              - label: "Interný odkaz na stránku"
+                name: "pageButton"
+                widget: "object"
+                fields:
+                  - { label: "Text tlačidla", name: "text", widget: "string", required: false }
+                  - { label: "Text tlačidla v angličtine", name: "enText", widget: "string", required: false }
+                  - { label: "Stránka", name: "page", widget: "relation", collection: "pages", search_fields: ["title"], value_field: "title", required: false }
+              - label: "Externý odkaz na URL"
+                name: "urlButton"
+                widget: "object"
+                fields:
+                  - { label: "Text tlačidla", name: "text", widget: "string", required: false }
+                  - { label: "Text tlačidla v angličtine", name: "enText", widget: "string", required: false }
+                  - { label: "Odkaz", name: "url", widget: "string", required: false }
+
+  - name: "menu"
+    label: "Menu"
+    files:
+      - label: "Navigačné menu"
+        name: "navMenu"
+        file: "content/menu/NavMenu.md"
+        fields:
+          - label: "Odkaz"
+            name: "links"
+            widget: "list"
+            types:
+              - label: "Odkaz na stránku"
+                name: "pageLink"
+                widget: "object"
+                fields:
+                  - { label: "Text odkazu", name: "text", widget: "string", required: true }
+                  - { label: "Text odkazu v angličtine", name: "enText", widget: "string", required: false }
+                  - { label: "Stránka", name: "page", widget: "relation", collection: "pages", search_fields: ["title"], value_field: "title", required: false }
+              - label: "Kategória"
+                name: "categoryLink"
+                widget: "object"
+                fields:
+                  - { label: "Text odkazu", name: "text", widget: "string", required: true }
+                  - { label: "Text odkazu v angličtine", name: "enText", widget: "string", required: false }
+                  - label: "Odkaz"
+                    name: "links"
+                    widget: "list"
+                    fields:
+                      - { label: "Text odkazu", name: "text", widget: "string", required: true }
+                      - { label: "Text odkazu v angličtine", name: "enText", widget: "string", required: false }
+                      - { label: "Stránka", name: "page", widget: "relation", collection: "pages", search_fields: ["title"], value_field: "title", required: false }
+      - label: "Sociálne siete"
+        name: "socialMenu"
+        file: "content/menu/SocialMenu.md"
+        fields:
+          - label: "Odkaz"
+            name: "links"
+            widget: "list"
+            fields:
+              - { label: "Názov odkazu", name: "text", widget: "string", required: true }
+              - { label: "Ikonka", name: "image", widget: "image", required: true }
+              - { label: "URL odkazu", name: "url", widget: "string", required: true }
+
+  - name: "homepage"
+    label: "Domovská stránka"
+    files:
+      - label: "Domovská stránka"
+        name: "homepage"
+        file: "content/homepage/Homepage.md"
+        fields:
+          - { label: "Nadpis", name: "title", widget: "string", required: true }
+          - { label: "Nadpis v angličtine", name: "enTitle", widget: "string", required: false }
+          - { label: "Titulný obrázok", name: "image", widget: "image", required: false }
+          - label: "Tlačidlá"
+            name: "buttons"
+            widget: "list"
+            types:
+              - label: "Interný odkaz na stránku"
+                name: "pageButton"
+                widget: "object"
+                fields:
+                  - { label: "Text tlačidla", name: "text", widget: "string", required: false }
+                  - { label: "Text tlačidla v angličtine", name: "enText", widget: "string", required: false }
+                  - { label: "Stránka", name: "page", widget: "relation", collection: "pages", search_fields: ["title"], value_field: "title", required: false }
+              - label: "Externý odkaz na URL"
+                name: "urlButton"
+                widget: "object"
+                fields:
+                  - { label: "Text tlačidla", name: "text", widget: "string", required: false }
+                  - { label: "Text tlačidla v angličtine", name: "enText", widget: "string", required: false }
+                  - { label: "Odkaz", name: "url", widget: "string", required: false }
+          - label: "Obsah"
+            name: "content"
+            widget: "list"
+            fields:
+              - { label: "Nadpis", name: "title", widget: "string", required: false }
+              - { label: "Nadpis v angličtine", name: "enTitle", widget: "string", required: false }
+              - { label: "Obrázky", name: "gallery", widget: "image", required: false, multiple: true }
+              - { label: "Text", name: "text", widget: "markdown", required: false }
+              - { label: "Text v angličtine", name: "enText", widget: "markdown", required: false }
+              - label: "Tlačidlá"
+                name: "buttons"
+                widget: "list"
+                types:
+                  - label: "Interný odkaz na stránku"
+                    name: "pageButton"
+                    widget: "object"
+                    fields:
+                      - { label: "Text tlačidla", name: "text", widget: "string", required: false }
+                      - { label: "Text tlačidla v angličtine", name: "enText", widget: "string", required: false }
+                      - { label: "Stránka", name: "page", widget: "relation", collection: "pages", search_fields: ["title"], value_field: "title", required: false }
+                  - label: "Externý odkaz na URL"
+                    name: "urlButton"
+                    widget: "object"
+                    fields:
+                      - { label: "Text tlačidla", name: "text", widget: "string", required: false }
+                      - { label: "Text tlačidla v angličtine", name: "enText", widget: "string", required: false }
+                      - { label: "Odkaz", name: "url", widget: "string", required: false }
