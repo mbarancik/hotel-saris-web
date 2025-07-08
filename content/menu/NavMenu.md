@@ -13,4 +13,7 @@ links:
   - type: pageLink
     text: Izby
     page: izby
+  - type: pageLink
+    text: Kontakt
+    page: kontakt
 ---
