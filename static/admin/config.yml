@@ -1,8 +1,10 @@
-local_backend: true
-
 backend:
-  name: local
-  branch: decap-cms
+  name: github
+  repo: username/repo
+  branch: main
+  site_domain: https://hotel-saris-web.pages.dev/
+  base_url: https://hotel-saris-web.pages.dev/
+  auth_endpoint: /api/auth
 
 media_folder: 'static/media'
 public_folder: '/media'
