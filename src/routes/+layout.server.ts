@@ -1,14 +1,14 @@
-import { client } from '../../tina/__generated__/client';
+import matter from "gray-matter";
+import fs from 'fs';
 
 export async function load() {
-	const pagesResponse = await client.queries.pagesConnection();
-	const pages = pagesResponse.data.pagesConnection.edges;
-
-	const menuResponse = await client.queries.menuConnection();
-	const menu = menuResponse.data.menuConnection.edges;
+	const navMenuFile = fs.readFileSync('content/menu/NavMenu.md', 'utf-8');
+  const navMenu = matter(navMenuFile).data.links;
+  const socialMenuFile = fs.readFileSync('content/menu/SocialMenu.md', 'utf-8');
+  const socialMenu = matter(socialMenuFile).data.links;
 
 	return {
-		pages: pages,
-		menu: menu
+    navMenu: navMenu,
+    socialMenu: socialMenu
 	};
 }

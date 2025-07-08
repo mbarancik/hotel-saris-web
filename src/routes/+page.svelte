@@ -1,8 +1,9 @@
 <script lang="ts">
 	import LightboxModal from '$lib/LightboxModal.svelte';
-	import parseContentToHtml from '$lib/parseToHtml';
 	import { language } from '$lib/stores/language';
 	import { onMount } from 'svelte';
+	import { marked } from 'marked';
+	import sanitizeHtml from 'sanitize-html';
 
 	let { data } = $props();
 
@@ -32,9 +33,9 @@
 	});
 
 	const handleHref = (button: any) => {
-		if (button.__typename?.endsWith('PageButton')) {
-			return button.page?._sys.filename || '#';
-		} else if (button.__typename?.endsWith('UrlButton')) {
+		if (button.type === "pageButton") {
+			return button.page || '#';
+		} else if (button.type === "urlButton") {
 			// Check if the URL starts with http:// or https://
 			if (button.url && !/^https?:\/\//i.test(button.url)) {
 				return 'https://' + button.url;
@@ -84,7 +85,7 @@
 </section>
 
 <section class="bg">
-	{#each data.homepage?.body || [] as body}
+	{#each data.homepage?.content || [] as content}
 		<article>
 			<div class="text">
 				<div>
@@ -92,13 +93,19 @@
 					<div class="horizontal-l"></div>
 				</div>
 				<div class="text-inner">
-					<h1>{$language === 'sk' ? body?.title : body?.enTitle}</h1>
+					<h1>{$language === 'sk' ? content?.title : content?.enTitle}</h1>
 					<div class="text-body">
-						{@html parseContentToHtml($language === 'sk' ? body?.text : body?.enText)}
+						{#await marked.parse(($language === 'sk' ? content?.text : content?.enText) || "")}
+							<p>Loading...</p>
+						{:then parsed}
+							{@html sanitizeHtml(parsed)}
+						{:catch error}
+							<p>Error loading content.</p>
+						{/await}
 					</div>
-					{#if body?.buttons}
+					{#if content?.buttons}
 						<div class="mt-4 flex gap-4">
-							{#each body?.buttons || [] as button}
+							{#each content?.buttons || [] as button}
 								<a href={handleHref(button)} class="primary-btn">
 									{$language === 'sk' ? button?.text : button?.enText}
 								</a>
@@ -111,11 +118,11 @@
 					<div class="vertical-l"></div>
 				</div>
 			</div>
-			{#if body?.gallery}
+			{#if content?.gallery}
 				<div class="gallery">
-					{#each body?.gallery || [] as img}
+					{#each content?.gallery || [] as img}
 						<button onclick={(e) => (lightboxImgUrl = (e.target as HTMLImageElement)?.src || '')}>
-							<img src={img} alt="" />
+							<img src={img.image} alt="" />
 						</button>
 					{/each}
 				</div>
@@ -139,7 +146,8 @@
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
-		object-position: center 20%;
+		object-position: center;
+		overflow: hidden;
 	}
 
 	.hero-content {
@@ -316,8 +324,8 @@
 	.gallery::before {
 		content: '';
 		display: block;
-		width: 25vh;
-		height: 25vh;
+		width: 20vh;
+		height: 20vh;
 		position: absolute;
 		top: -10%;
 		left: -15%;
@@ -349,8 +357,8 @@
 	article:nth-child(even) .gallery::after {
 		right: unset;
 		left: -15%;
-		width: 25vh;
-		height: 25vh;
+		width: 20vh;
+		height: 20vh;
 	}
 
 	.gallery button {

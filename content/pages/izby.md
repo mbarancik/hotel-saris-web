@@ -1,7 +1,7 @@
 ---
 title: Izby
 enTitle: Rooms
-image: /static/media/saris zenich nevesta.jpg
+image: /media/saris zenich nevesta.jpg
 content:
   - title: Popis izieb
     enTitle: Description

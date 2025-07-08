@@ -1,13 +1,14 @@
-import { client } from '../../tina/__generated__/client';
 import { error } from '@sveltejs/kit';
+import matter from "gray-matter";
+import fs from 'fs';
 
 export async function load() {
 	try {
-		const response = await client.queries.homepageConnection();
-		const homepage = response.data.homepageConnection.edges?.[0]?.node;
+		const pageFile = fs.readFileSync(`content/homepage/Homepage.md`, 'utf-8');
+		const { data } = matter(pageFile);
 
 		return {
-			homepage: homepage
+			homepage: data
 		};
 	} catch {
 		throw error(404, 'Page not found');

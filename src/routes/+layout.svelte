@@ -6,11 +6,6 @@
 
 	let { children, data } = $props();
 
-	const navMenu =
-		data?.menu?.find((item) => item?.node?._sys?.filename === 'NavMenu')?.node?.links || [];
-	const socialMenu =
-		data?.menu?.find((item) => item?.node?._sys?.filename === 'SocialMenu')?.node?.links || [];
-
 	// Initialize language store from localStorage on mount
 	onMount(() => {
 		language.init();
@@ -32,21 +27,21 @@
 			<span class="material-symbols-outlined"> menu </span>
 		</button>
 		<nav>
-			{#each navMenu as navItem}
-				{#if navItem?.__typename === 'MenuNavMenuLinksCategoryLink'}
+			{#each data.navMenu || [] as navItem}
+				{#if navItem?.type === 'categoryLink'}
 					<span class="flyout-trigger">
 						<span class="flyout-title">
 							{navItem?.text}
 							<span class="material-symbols-outlined"> arrow_drop_down </span>
 						</span>
 						<div class="flyout">
-							{#each navItem?.links || [] as page}
-								<a href="/{page?.page?._sys.filename}">{page?.text}</a>
+							{#each navItem?.links || [] as link}
+								<a href="/{link?.page}">{link?.text}</a>
 							{/each}
 						</div>
 					</span>
-				{:else if navItem?.__typename === 'MenuNavMenuLinksPageLink'}
-					<a href="/{navItem?.page?._sys.filename}">{navItem?.text}</a>
+				{:else if navItem?.type === 'pageLink'}
+					<a href="/{navItem?.page}">{navItem?.text}</a>
 				{/if}
 			{/each}
 
@@ -60,7 +55,7 @@
 				</div>
 			</span>
 
-			{#each socialMenu as socialItem}
+			{#each data.socialMenu || [] as socialItem}
 				{#if socialItem?.__typename === 'MenuSocialMenuLinks'}
 					<a href={socialItem?.url}>
 						<img src={socialItem?.image} alt="" class="social-icon" />
@@ -79,7 +74,7 @@
 			</button>
 			<nav>
 				<a href="/">Domov</a>
-				{#each navMenu as navItem}
+				{#each data.navMenu || [] as navItem}
 					{#if navItem?.__typename === 'MenuNavMenuLinksCategoryLink'}
 						<div class="category">
 							<span class="category-title">
@@ -103,7 +98,7 @@
 				</div>
 
 				<div class="social-menu">
-					{#each socialMenu as socialItem}
+					{#each data.socialMenu || [] as socialItem}
 						{#if socialItem?.__typename === 'MenuSocialMenuLinks'}
 							<a href={socialItem?.url}>
 								<img src={socialItem?.image} alt="" class="social-icon" />

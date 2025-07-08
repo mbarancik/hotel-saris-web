@@ -5,6 +5,7 @@ backend:
   branch: decap-cms
 
 media_folder: "static/media"
+public_folder: "/media"
 
 collections:
   - name: "pages"
@@ -23,7 +24,11 @@ collections:
         fields:
           - { label: "Nadpis", name: "title", widget: "string", required: false }
           - { label: "Nadpis v angličtine", name: "enTitle", widget: "string", required: false }
-          - { label: "Obrázky", name: "gallery", widget: "image", required: false, multiple: true }
+          - label: "Obrázky"
+            name: "gallery"
+            widget: "list"
+            fields:
+              - { label: "Obrázok", name: "image", widget: "image", required: false }
           - { label: "Text", name: "text", widget: "markdown", required: false }
           - { label: "Text v angličtine", name: "enText", widget: "markdown", required: false }
           - label: "Tlačidlá"
@@ -36,7 +41,7 @@ collections:
                 fields:
                   - { label: "Text tlačidla", name: "text", widget: "string", required: false }
                   - { label: "Text tlačidla v angličtine", name: "enText", widget: "string", required: false }
-                  - { label: "Stránka", name: "page", widget: "relation", collection: "pages", search_fields: ["title"], value_field: "title", required: false }
+                  - { label: "Stránka", name: "page", widget: "relation", collection: "pages", search_fields: ["title"], value_field: "{{slug}}", required: false }
               - label: "Externý odkaz na URL"
                 name: "urlButton"
                 widget: "object"
@@ -62,7 +67,7 @@ collections:
                 fields:
                   - { label: "Text odkazu", name: "text", widget: "string", required: true }
                   - { label: "Text odkazu v angličtine", name: "enText", widget: "string", required: false }
-                  - { label: "Stránka", name: "page", widget: "relation", collection: "pages", search_fields: ["title"], value_field: "title", required: false }
+                  - { label: "Stránka", name: "page", widget: "relation", collection: "pages", search_fields: ["title"], value_field: "{{slug}}", required: false }
               - label: "Kategória"
                 name: "categoryLink"
                 widget: "object"
@@ -75,7 +80,7 @@ collections:
                     fields:
                       - { label: "Text odkazu", name: "text", widget: "string", required: true }
                       - { label: "Text odkazu v angličtine", name: "enText", widget: "string", required: false }
-                      - { label: "Stránka", name: "page", widget: "relation", collection: "pages", search_fields: ["title"], value_field: "title", required: false }
+                      - { label: "Stránka", name: "page", widget: "relation", collection: "pages", search_fields: ["title"], value_field: "{{slug}}", required: false }
       - label: "Sociálne siete"
         name: "socialMenu"
         file: "content/menu/SocialMenu.md"
@@ -108,7 +113,7 @@ collections:
                 fields:
                   - { label: "Text tlačidla", name: "text", widget: "string", required: false }
                   - { label: "Text tlačidla v angličtine", name: "enText", widget: "string", required: false }
-                  - { label: "Stránka", name: "page", widget: "relation", collection: "pages", search_fields: ["title"], value_field: "title", required: false }
+                  - { label: "Stránka", name: "page", widget: "relation", collection: "pages", search_fields: ["title"], value_field: "{{slug}}", required: false }
               - label: "Externý odkaz na URL"
                 name: "urlButton"
                 widget: "object"
@@ -122,7 +127,11 @@ collections:
             fields:
               - { label: "Nadpis", name: "title", widget: "string", required: false }
               - { label: "Nadpis v angličtine", name: "enTitle", widget: "string", required: false }
-              - { label: "Obrázky", name: "gallery", widget: "image", required: false, multiple: true }
+              - label: "Obrázky"
+                name: "gallery"
+                widget: "list"
+                fields:
+                  - { label: "Obrázok", name: "image", widget: "image", required: false }
               - { label: "Text", name: "text", widget: "markdown", required: false }
               - { label: "Text v angličtine", name: "enText", widget: "markdown", required: false }
               - label: "Tlačidlá"
@@ -135,7 +144,7 @@ collections:
                     fields:
                       - { label: "Text tlačidla", name: "text", widget: "string", required: false }
                       - { label: "Text tlačidla v angličtine", name: "enText", widget: "string", required: false }
-                      - { label: "Stránka", name: "page", widget: "relation", collection: "pages", search_fields: ["title"], value_field: "title", required: false }
+                      - { label: "Stránka", name: "page", widget: "relation", collection: "pages", search_fields: ["title"], value_field: "{{slug}}", required: false }
                   - label: "Externý odkaz na URL"
                     name: "urlButton"
                     widget: "object"
