@@ -66,7 +66,7 @@
 	</header>
 </div>
 
-{#if isSidebarOpen }
+{#if isSidebarOpen}
 	<div class="sidebar-backdrop" in:fade={{ duration: 200 }} out:fade={{ duration: 200 }}>
 		<div class="sidebar" in:fly={{ x: -300, duration: 300 }} out:fly={{ x: -300, duration: 300 }}>
 			<button class="close-sidebar-btn" onclick={() => (isSidebarOpen = false)}>

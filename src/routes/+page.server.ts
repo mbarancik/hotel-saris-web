@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit';
-import matter from "gray-matter";
+import matter from 'gray-matter';
 import fs from 'fs';
 
 export async function load() {

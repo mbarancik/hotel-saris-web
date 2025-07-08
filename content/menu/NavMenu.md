@@ -4,7 +4,7 @@ links:
     text: Ubytovanie
     links:
       - text: Izby
-        page: Izby
+        page: []
   - type: categoryLink
     text: Gastronómia
     links:
@@ -16,5 +16,5 @@ links:
         page: denné-menu
   - type: pageLink
     text: Izby
-    page: []
+    page: izby
 ---

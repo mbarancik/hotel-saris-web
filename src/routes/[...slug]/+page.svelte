@@ -33,9 +33,9 @@
 	});
 
 	const handleHref = (button: any) => {
-		if (button.type === "pageButton") {
+		if (button.type === 'pageButton') {
 			return button.page || '#';
-		} else if (button.type === "urlButton") {
+		} else if (button.type === 'urlButton') {
 			// Check if the URL starts with http:// or https://
 			if (button.url && !/^https?:\/\//i.test(button.url)) {
 				return 'https://' + button.url;
@@ -85,7 +85,7 @@
 				<div class="text-inner">
 					<h1>{$language === 'sk' ? content?.title : content?.enTitle}</h1>
 					<div class="text-body">
-						{#await marked.parse(($language === 'sk' ? content?.text : content?.enText) || "")}
+						{#await marked.parse(($language === 'sk' ? content?.text : content?.enText) || '')}
 							<p>Loading...</p>
 						{:then parsed}
 							{@html sanitizeHtml(parsed)}
@@ -463,9 +463,9 @@
 			padding: 0 1rem;
 		}
 
-	article:has(.gallery) {
-		grid-template-columns: 1fr;
-	}
+		article:has(.gallery) {
+			grid-template-columns: 1fr;
+		}
 
 		article:nth-child(even) .text,
 		article:nth-child(even) .gallery {
@@ -563,5 +563,4 @@
 			grid-template-columns: 1fr;
 		} */
 	}
-
 </style>
