@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: username/repo
+  repo: majoouoo/hotel-saris-web
   branch: main
   site_domain: https://hotel-saris-web.pages.dev/
   base_url: https://hotel-saris-web.pages.dev/
