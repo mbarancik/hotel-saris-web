@@ -1,6 +1,8 @@
 import matter from 'gray-matter';
 import fs from 'fs';
 
+export const prerender = true;
+
 export async function load() {
 	const navMenuFile = fs.readFileSync('content/menu/NavMenu.md', 'utf-8');
 	const navMenu = matter(navMenuFile).data.links;
