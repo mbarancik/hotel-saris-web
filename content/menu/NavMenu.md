@@ -10,6 +10,8 @@ links:
     links:
       - text: testt
         page: denné-menu
+      - text: Jedálny lístok
+        page: jedálny-lístok
   - type: pageLink
     text: Izby
     page: izby
