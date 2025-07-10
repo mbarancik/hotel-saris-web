@@ -1,6 +1,6 @@
 ---
 links:
   - text: Facebook
+    image: /media/Facebook_Logo_Primary.png
     url: facebook.com
-    image: /static/media/Facebook_Logo_Primary.png
 ---
