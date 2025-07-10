@@ -149,10 +149,14 @@
 		display: grid;
 		grid-template-columns: 1fr;
 		grid-template-rows: 1fr auto 1fr;
-		background: url('/background.jpg') no-repeat center center;
+		background: var(--tertiary);
 		background-size: cover;
 		z-index: 10;
 		height: auto;
+	}
+
+	.hero:has(img) .hero-content {
+		background: url('media/background.webp') no-repeat center center;
 	}
 
 	.hero-content-inner {
@@ -178,11 +182,15 @@
 
 	.hero-content-inner h1 {
 		font-family: 'Gloock', serif;
-		color: var(--tertiary);
+		color: var(--secondary);
 		font-size: max(5vw, 3rem);
 		font-weight: 400;
 		letter-spacing: -0.1rem;
 		line-height: 110%;
+	}
+
+	.hero:has(img) .hero-content-inner h1 {
+		color: var(--tertiary);
 	}
 
 	.vertical-l {

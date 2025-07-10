@@ -154,7 +154,7 @@
 		display: grid;
 		grid-template-columns: 1fr;
 		grid-template-rows: 1fr auto auto auto 1fr;
-		background: url('/background.jpg') no-repeat center center;
+		background: url('media/background.webp') no-repeat center center;
 		background-size: cover;
 		z-index: 10;
 	}

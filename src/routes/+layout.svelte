@@ -21,7 +21,7 @@
 <div class="desktop-header">
 	<header>
 		<a href="/" class="logo">
-			<img src="media/saris logo.png" alt="" />
+			<img src="media/HotelSarisLogo.webp" alt="" />
 		</a>
 		<button class="open-sidebar-btn" onclick={() => (isSidebarOpen = true)}>
 			<span class="material-symbols-outlined"> menu </span>
