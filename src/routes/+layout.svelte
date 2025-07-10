@@ -16,6 +16,14 @@
 	}
 
 	let isSidebarOpen = $state(false);
+
+	const handleUrl = (url: string) => {
+		// Check if the URL starts with http:// or https://
+		if (url && !/^https?:\/\//i.test(url)) {
+			return 'https://' + url;
+		}
+		return url || '#';
+	};
 </script>
 
 <div class="desktop-header">
@@ -56,7 +64,7 @@
 			</span>
 
 			{#each data.socialMenu || [] as socialItem}
-				<a href={socialItem?.url}>
+				<a href={handleUrl(socialItem?.url)} target="_blank" rel="noopener noreferrer">
 					<img src={socialItem?.image} alt="" class="social-icon" />
 				</a>
 			{/each}
@@ -97,7 +105,7 @@
 
 				<div class="social-menu">
 					{#each data.socialMenu || [] as socialItem}
-						<a href={socialItem?.url}>
+						<a href={handleUrl(socialItem?.url)} target="_blank" rel="noopener noreferrer">
 							<img src={socialItem?.image} alt="" class="social-icon" />
 						</a>
 					{/each}
