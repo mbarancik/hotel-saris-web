@@ -4,33 +4,51 @@
 	import { onMount } from 'svelte';
 	import { marked } from 'marked';
 	import sanitizeHtml from 'sanitize-html';
+	import { afterNavigate } from '$app/navigation';
 
 	let { data } = $props();
 
 	let lightboxImgUrl = $state('');
+  let observer: IntersectionObserver;
 
-	onMount(() => {
-		const observer = new IntersectionObserver(
-			(entries) => {
-				entries.forEach((entry) => {
-					if (entry.isIntersecting) {
-						entry.target.classList.add('animate');
-					}
-				});
-			},
-			{
-				threshold: 0.2,
-				rootMargin: '0px 0px -50px 0px'
-			}
-		);
+  function setupObserver() {
+    observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate');
+          }
+        });
+      },
+      { threshold: 0.2, rootMargin: '0px 0px -50px 0px' }
+    );
 
-		const animatedElements = document.querySelectorAll(
-			'.vertical-l, .horizontal-l, .hero-content-inner, .text-inner, .gallery'
-		);
-		animatedElements.forEach((el) => observer.observe(el));
+    document
+      .querySelectorAll(
+        '.vertical-l, .horizontal-l, .hero-content-inner, .text-inner, .gallery'
+      )
+      .forEach((el) => observer.observe(el));
+  }
 
-		return () => observer.disconnect();
-	});
+  function teardownObserver() {
+    observer?.disconnect();
+  }
+
+  function resetAnimations() {
+    document.querySelectorAll('.animate').forEach((el) => el.classList.remove('animate'));
+  }
+
+  onMount(() => {
+    setupObserver();
+    return () => teardownObserver();
+  });
+
+  afterNavigate(() => {
+    // remove old classes, tear down & re-observe new elements
+    resetAnimations();
+    teardownObserver();
+    setupObserver();
+  });
 
 	const handleHref = (button: any) => {
 		if (button.type === 'pageButton') {
@@ -45,6 +63,10 @@
 		return '#'; // Default fallback URL
 	};
 </script>
+
+<svelte:head>
+	<title>{($language === 'sk' ? data.page.title + " | Hotel Šariš" : data.page.enTitle + " | Hotel Šariš") || "Hotel Šariš"}</title>
+</svelte:head>
 
 {#if lightboxImgUrl}
 	<LightboxModal imgUrl={lightboxImgUrl} close={() => (lightboxImgUrl = '')} />
