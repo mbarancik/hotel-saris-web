@@ -56,11 +56,9 @@
 			</span>
 
 			{#each data.socialMenu || [] as socialItem}
-				{#if socialItem?.__typename === 'MenuSocialMenuLinks'}
-					<a href={socialItem?.url}>
-						<img src={socialItem?.image} alt="" class="social-icon" />
-					</a>
-				{/if}
+				<a href={socialItem?.url}>
+					<img src={socialItem?.image} alt="" class="social-icon" />
+				</a>
 			{/each}
 		</nav>
 	</header>
@@ -75,17 +73,17 @@
 			<nav>
 				<a href="/">Domov</a>
 				{#each data.navMenu || [] as navItem}
-					{#if navItem?.__typename === 'MenuNavMenuLinksCategoryLink'}
+					{#if navItem?.type === 'categoryLink'}
 						<div class="category">
 							<span class="category-title">
 								{navItem?.text}
 							</span>
-							{#each navItem?.links || [] as page}
-								<a href="/{page?.page?._sys.filename}">— {page?.text}</a>
+							{#each navItem?.links || [] as link}
+								<a href="/{link?.page}">— {link?.text}</a>
 							{/each}
 						</div>
-					{:else if navItem?.__typename === 'MenuNavMenuLinksPageLink'}
-						<a href="/{navItem?.page?._sys.filename}">{navItem?.text}</a>
+					{:else if navItem?.type === 'pageLink'}
+						<a href="/{navItem?.page}">{navItem?.text}</a>
 					{/if}
 				{/each}
 
@@ -99,11 +97,9 @@
 
 				<div class="social-menu">
 					{#each data.socialMenu || [] as socialItem}
-						{#if socialItem?.__typename === 'MenuSocialMenuLinks'}
-							<a href={socialItem?.url}>
-								<img src={socialItem?.image} alt="" class="social-icon" />
-							</a>
-						{/if}
+						<a href={socialItem?.url}>
+							<img src={socialItem?.image} alt="" class="social-icon" />
+						</a>
 					{/each}
 				</div>
 			</nav>
