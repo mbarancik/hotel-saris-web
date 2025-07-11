@@ -182,7 +182,7 @@
 	}
 
 	.hero:has(img) .hero-content {
-		background: url('media/background.webp') no-repeat center center;
+		background: url('/media/background.webp') no-repeat center center;
 	}
 
 	.hero-content-inner {
