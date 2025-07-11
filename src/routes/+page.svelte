@@ -73,7 +73,7 @@
 <section class="hero">
 	<div class="hero-content">
 		<div>
-			<div class="vertical-l"></div>
+			<div class="vertical-l min-h-20"></div>
 			<div class="horizontal-l"></div>
 		</div>
 
