@@ -12,7 +12,20 @@
 	});
 </script>
 
-<div class="backdrop">
+<div
+	class="backdrop"
+	role="dialog"
+	tabindex="0"
+	aria-modal="true"
+	onclick={(e) => {
+		if (e.target === e.currentTarget) close();
+	}}
+	onkeydown={(e) => {
+		if (e.key === 'Escape' && e.target === e.currentTarget) {
+			close();
+		}
+	}}
+>
 	<button class="close-button" onclick={close}>
 		<span class="material-symbols-outlined">close</span>
 	</button>

@@ -9,46 +9,44 @@
 	let { data } = $props();
 
 	let lightboxImgUrl = $state('');
-  let observer: IntersectionObserver;
+	let observer: IntersectionObserver;
 
-  function setupObserver() {
-    observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('animate');
-          }
-        });
-      },
-      { threshold: 0.2, rootMargin: '0px 0px -50px 0px' }
-    );
+	function setupObserver() {
+		observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('animate');
+					}
+				});
+			},
+			{ threshold: 0.2, rootMargin: '0px 0px -50px 0px' }
+		);
 
-    document
-      .querySelectorAll(
-        '.vertical-l, .horizontal-l, .hero-content-inner, .text-inner, .gallery'
-      )
-      .forEach((el) => observer.observe(el));
-  }
+		document
+			.querySelectorAll('.vertical-l, .horizontal-l, .hero-content-inner, .text-inner, .gallery')
+			.forEach((el) => observer.observe(el));
+	}
 
-  function teardownObserver() {
-    observer?.disconnect();
-  }
+	function teardownObserver() {
+		observer?.disconnect();
+	}
 
-  function resetAnimations() {
-    document.querySelectorAll('.animate').forEach((el) => el.classList.remove('animate'));
-  }
+	function resetAnimations() {
+		document.querySelectorAll('.animate').forEach((el) => el.classList.remove('animate'));
+	}
 
-  onMount(() => {
-    setupObserver();
-    return () => teardownObserver();
-  });
+	onMount(() => {
+		setupObserver();
+		return () => teardownObserver();
+	});
 
-  afterNavigate(() => {
-    // remove old classes, tear down & re-observe new elements
-    resetAnimations();
-    teardownObserver();
-    setupObserver();
-  });
+	afterNavigate(() => {
+		// remove old classes, tear down & re-observe new elements
+		resetAnimations();
+		teardownObserver();
+		setupObserver();
+	});
 
 	const handleHref = (button: any) => {
 		if (button.type === 'pageButton') {
@@ -65,7 +63,11 @@
 </script>
 
 <svelte:head>
-	<title>{($language === 'sk' ? data.page.title + " | Hotel Šariš" : data.page.enTitle + " | Hotel Šariš") || "Hotel Šariš"}</title>
+	<title
+		>{($language === 'sk'
+			? data.page.title + ' | Hotel Šariš'
+			: data.page.enTitle + ' | Hotel Šariš') || 'Hotel Šariš'}</title
+	>
 </svelte:head>
 
 {#if lightboxImgUrl}
@@ -99,37 +101,39 @@
 <section class="bg">
 	{#each data.page.content || [] as content}
 		<article>
-			<div class="text">
-				<div>
-					<div class="vertical-l"></div>
-					<div class="horizontal-l"></div>
-				</div>
-				<div class="text-inner">
-					<h1>{$language === 'sk' ? content?.title : content?.enTitle}</h1>
-					<div class="text-body">
-						{#await marked.parse(($language === 'sk' ? content?.text : content?.enText) || '')}
-							<p>Loading...</p>
-						{:then parsed}
-							{@html sanitizeHtml(parsed)}
-						{:catch error}
-							<p>Error loading content.</p>
-						{/await}
+			{#if content?.title || content?.enTitle || content?.text || content?.enText || content?.buttons}
+				<div class="text">
+					<div>
+						<div class="vertical-l"></div>
+						<div class="horizontal-l"></div>
 					</div>
-					{#if content?.buttons}
-						<div class="mt-4 flex gap-4">
-							{#each content?.buttons || [] as button}
-								<a href={handleHref(button)} class="primary-btn">
-									{$language === 'sk' ? button?.text : button?.enText}
-								</a>
-							{/each}
+					<div class="text-inner">
+						<h1>{$language === 'sk' ? content?.title : content?.enTitle}</h1>
+						<div class="text-body">
+							{#await marked.parse(($language === 'sk' ? content?.text : content?.enText) || '')}
+								<p>Loading...</p>
+							{:then parsed}
+								{@html sanitizeHtml(parsed)}
+							{:catch error}
+								<p>Error loading content.</p>
+							{/await}
 						</div>
-					{/if}
+						{#if content?.buttons}
+							<div class="mt-4 flex gap-4">
+								{#each content?.buttons || [] as button}
+									<a href={handleHref(button)} class="primary-btn">
+										{$language === 'sk' ? button?.text : button?.enText}
+									</a>
+								{/each}
+							</div>
+						{/if}
+					</div>
+					<div>
+						<div class="horizontal-l"></div>
+						<div class="vertical-l"></div>
+					</div>
 				</div>
-				<div>
-					<div class="horizontal-l"></div>
-					<div class="vertical-l"></div>
-				</div>
-			</div>
+			{/if}
 			{#if content?.gallery}
 				<div class="gallery">
 					{#each content?.gallery || [] as img}
@@ -282,7 +286,7 @@
 		padding: 0 2rem;
 	}
 
-	article:has(.gallery) {
+	article:has(.text):has(.gallery) {
 		grid-template-columns: 1fr 1fr;
 	}
 
@@ -319,10 +323,13 @@
 	.gallery {
 		gap: 1rem;
 		height: 100%;
-		max-height: 80vh;
 		position: relative;
 		width: fit-content;
 		justify-self: center;
+	}
+
+	article:has(.text) .gallery {
+		max-height: 80vh;
 	}
 
 	:global(.gallery.animate) {
@@ -336,8 +343,8 @@
 		width: 20vh;
 		height: 20vh;
 		position: absolute;
-		top: -10%;
-		left: -15%;
+		top: -5rem;
+		left: -7rem;
 		background-color: #61584b10;
 		backdrop-filter: blur(10px);
 		z-index: 2;
@@ -349,8 +356,8 @@
 		width: 15vh;
 		height: 15vh;
 		position: absolute;
-		bottom: -10%;
-		right: -5%;
+		bottom: -5rem;
+		right: -3rem;
 		background-color: #61584b10;
 		backdrop-filter: blur(10px);
 		z-index: 2;
@@ -390,15 +397,15 @@
 	}
 
 	:global(.gallery.animate) button:nth-child(4) {
-		transition-delay: 0.6s;
+		transition-delay: 0.55s;
 	}
 
 	:global(.gallery.animate) button:nth-child(5) {
-		transition-delay: 0.8s;
+		transition-delay: 0.7s;
 	}
 
 	:global(.gallery.animate) button:nth-child(n + 6) {
-		transition-delay: 1s;
+		transition-delay: 0.8s;
 	}
 
 	.gallery img {
@@ -456,10 +463,19 @@
 		grid-template-rows: 1fr 1fr;
 	}
 
-	/* Five or more images */
-	.gallery:has(img:nth-child(n + 5)),
-	.gallery:has(button:nth-child(n + 5)) {
+	/* Five or six images */
+	.gallery:has(img:nth-child(5):last-child),
+	.gallery:has(button:nth-child(5):last-child),
+	.gallery:has(img:nth-child(6):last-child),
+	.gallery:has(button:nth-child(6):last-child) {
 		grid-template-columns: repeat(3, 1fr);
+		grid-template-rows: repeat(auto-fit, 1fr);
+	}
+
+	/* Seven or more images */
+	.gallery:has(img:nth-child(n + 7):last-child),
+	.gallery:has(button:nth-child(n + 7):last-child) {
+		grid-template-columns: repeat(4, 1fr);
 		grid-template-rows: repeat(auto-fit, 1fr);
 	}
 
@@ -467,9 +483,13 @@
 	@media (max-width: 1000px) {
 		/* Hero Section */
 		.hero {
-			height: 80vh;
+			height: 50vh;
 			grid-template-columns: 1fr;
 			grid-template-rows: 50% 1fr;
+		}
+
+		.hero:has(img) {
+			height: max-content;
 		}
 
 		.hero-content-inner {
@@ -493,7 +513,7 @@
 			padding: 0 1rem;
 		}
 
-		article:has(.gallery) {
+		article:has(.text):has(.gallery) {
 			grid-template-columns: 1fr;
 		}
 
@@ -532,16 +552,16 @@
 		article:nth-child(even) .gallery::before {
 			width: 8vh;
 			height: 8vh;
-			top: -5%;
-			left: -5%;
+			top: -2rem;
+			left: -2rem;
 		}
 
 		.gallery::after,
 		article:nth-child(even) .gallery::after {
 			width: 5vh;
 			height: 5vh;
-			bottom: -5%;
-			right: -5%;
+			bottom: -2rem;
+			right: -2rem;
 		}
 
 		/* Multiple images mobile adjustments */
@@ -557,6 +577,11 @@
 
 	@media (max-width: 480px) {
 		/* Extra small screens */
+		.hero:has(img) {
+			height: 80vh;
+			grid-template-columns: 1fr;
+		}
+
 		.hero-content-inner {
 			margin: 0 0.5rem;
 			padding: 0.5rem;
@@ -588,9 +613,9 @@
 			min-height: 200px;
 		}
 
-		/* Force single column for very small galleries */
+		/* Force two columns for very small galleries */
 		/* .gallery:has(button:nth-child(n + 3)) {
-			grid-template-columns: 1fr;
+			grid-template-columns: 1fr 1fr;
 		} */
 	}
 </style>

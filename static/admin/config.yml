@@ -144,7 +144,7 @@ collections:
             widget: 'list'
             summary: '{{text}}'
             fields:
-              - { label: 'Názov odkazu', name: 'text', widget: 'string', required: true }
+              - { label: 'Názov odkazu', name: 'text', widget: 'string', required: false }
               - { label: 'Ikonka', name: 'image', widget: 'image', required: true }
               - { label: 'URL odkazu', name: 'url', widget: 'string', required: true }
 

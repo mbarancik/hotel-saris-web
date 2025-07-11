@@ -9,46 +9,44 @@
 	let { data } = $props();
 
 	let lightboxImgUrl = $state('');
-  let observer: IntersectionObserver;
+	let observer: IntersectionObserver;
 
-  function setupObserver() {
-    observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('animate');
-          }
-        });
-      },
-      { threshold: 0.2, rootMargin: '0px 0px -50px 0px' }
-    );
+	function setupObserver() {
+		observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('animate');
+					}
+				});
+			},
+			{ threshold: 0.2, rootMargin: '0px 0px -50px 0px' }
+		);
 
-    document
-      .querySelectorAll(
-        '.vertical-l, .horizontal-l, .hero-content-inner, .text-inner, .gallery'
-      )
-      .forEach((el) => observer.observe(el));
-  }
+		document
+			.querySelectorAll('.vertical-l, .horizontal-l, .hero-content-inner, .text-inner, .gallery')
+			.forEach((el) => observer.observe(el));
+	}
 
-  function teardownObserver() {
-    observer?.disconnect();
-  }
+	function teardownObserver() {
+		observer?.disconnect();
+	}
 
-  function resetAnimations() {
-    document.querySelectorAll('.animate').forEach((el) => el.classList.remove('animate'));
-  }
+	function resetAnimations() {
+		document.querySelectorAll('.animate').forEach((el) => el.classList.remove('animate'));
+	}
 
-  onMount(() => {
-    setupObserver();
-    return () => teardownObserver();
-  });
+	onMount(() => {
+		setupObserver();
+		return () => teardownObserver();
+	});
 
-  afterNavigate(() => {
-    // remove old classes, tear down & re-observe new elements
-    resetAnimations();
-    teardownObserver();
-    setupObserver();
-  });
+	afterNavigate(() => {
+		// remove old classes, tear down & re-observe new elements
+		resetAnimations();
+		teardownObserver();
+		setupObserver();
+	});
 
 	const handleHref = (button: any) => {
 		if (button.type === 'pageButton') {
@@ -65,7 +63,7 @@
 </script>
 
 <svelte:head>
-	<title>{$language === 'sk' ? "Domov" : "Home"} | Hotel Šariš</title>
+	<title>{$language === 'sk' ? 'Domov' : 'Home'} | Hotel Šariš</title>
 </svelte:head>
 
 {#if lightboxImgUrl}
@@ -109,37 +107,39 @@
 <section class="bg">
 	{#each data.homepage?.content || [] as content}
 		<article>
-			<div class="text">
-				<div>
-					<div class="vertical-l"></div>
-					<div class="horizontal-l"></div>
-				</div>
-				<div class="text-inner">
-					<h1>{$language === 'sk' ? content?.title : content?.enTitle}</h1>
-					<div class="text-body">
-						{#await marked.parse(($language === 'sk' ? content?.text : content?.enText) || '')}
-							<p>Loading...</p>
-						{:then parsed}
-							{@html sanitizeHtml(parsed)}
-						{:catch error}
-							<p>Error loading content.</p>
-						{/await}
+			{#if content?.title || content?.enTitle || content?.text || content?.enText || content?.buttons}
+				<div class="text">
+					<div>
+						<div class="vertical-l"></div>
+						<div class="horizontal-l"></div>
 					</div>
-					{#if content?.buttons}
-						<div class="mt-4 flex gap-4">
-							{#each content?.buttons || [] as button}
-								<a href={handleHref(button)} class="primary-btn">
-									{$language === 'sk' ? button?.text : button?.enText}
-								</a>
-							{/each}
+					<div class="text-inner">
+						<h1>{$language === 'sk' ? content?.title : content?.enTitle}</h1>
+						<div class="text-body">
+							{#await marked.parse(($language === 'sk' ? content?.text : content?.enText) || '')}
+								<p>Loading...</p>
+							{:then parsed}
+								{@html sanitizeHtml(parsed)}
+							{:catch error}
+								<p>Error loading content.</p>
+							{/await}
 						</div>
-					{/if}
+						{#if content?.buttons}
+							<div class="mt-4 flex gap-4">
+								{#each content?.buttons || [] as button}
+									<a href={handleHref(button)} class="primary-btn">
+										{$language === 'sk' ? button?.text : button?.enText}
+									</a>
+								{/each}
+							</div>
+						{/if}
+					</div>
+					<div>
+						<div class="horizontal-l"></div>
+						<div class="vertical-l"></div>
+					</div>
 				</div>
-				<div>
-					<div class="horizontal-l"></div>
-					<div class="vertical-l"></div>
-				</div>
-			</div>
+			{/if}
 			{#if content?.gallery}
 				<div class="gallery">
 					{#each content?.gallery || [] as img}
@@ -288,7 +288,7 @@
 		max-height: 80vh;
 	}
 
-	article:has(.gallery) {
+	article:has(.text):has(.gallery) {
 		grid-template-columns: 1fr 1fr;
 	}
 
@@ -349,8 +349,8 @@
 		width: 20vh;
 		height: 20vh;
 		position: absolute;
-		top: -10%;
-		left: -15%;
+		top: -5rem;
+		left: -7rem;
 		background-color: #61584b10;
 		backdrop-filter: blur(10px);
 		z-index: 2;
@@ -358,7 +358,7 @@
 
 	article:nth-child(even) .gallery::before {
 		left: unset;
-		right: -5%;
+		right: -3rem;
 		width: 15vh;
 		height: 15vh;
 	}
@@ -369,8 +369,8 @@
 		width: 15vh;
 		height: 15vh;
 		position: absolute;
-		bottom: -10%;
-		right: -5%;
+		bottom: -5rem;
+		right: -3rem;
 		background-color: #61584b10;
 		backdrop-filter: blur(10px);
 		z-index: 2;
@@ -378,7 +378,7 @@
 
 	article:nth-child(even) .gallery::after {
 		right: unset;
-		left: -15%;
+		left: -8rem;
 		width: 20vh;
 		height: 20vh;
 	}
@@ -483,10 +483,19 @@
 		grid-template-rows: 1fr 1fr;
 	}
 
-	/* Five or more images */
-	.gallery:has(img:nth-child(n + 5)),
-	.gallery:has(button:nth-child(n + 5)) {
+	/* Five or six images */
+	.gallery:has(img:nth-child(5):last-child),
+	.gallery:has(button:nth-child(5):last-child),
+	.gallery:has(img:nth-child(6):last-child),
+	.gallery:has(button:nth-child(6):last-child) {
 		grid-template-columns: repeat(3, 1fr);
+		grid-template-rows: repeat(auto-fit, 1fr);
+	}
+
+	/* Seven or more images */
+	.gallery:has(img:nth-child(n + 7):last-child),
+	.gallery:has(button:nth-child(n + 7):last-child) {
+		grid-template-columns: repeat(4, 1fr);
 		grid-template-rows: repeat(auto-fit, 1fr);
 	}
 
@@ -526,7 +535,7 @@
 			padding: 0 1rem;
 		}
 
-		article:has(.gallery) {
+		article:has(.text):has(.gallery) {
 			grid-template-columns: 1fr;
 		}
 
@@ -564,16 +573,16 @@
 		article:nth-child(even) .gallery::before {
 			width: 8vh;
 			height: 8vh;
-			top: -5%;
-			left: -5%;
+			top: -2rem;
+			left: -2rem;
 		}
 
 		.gallery::after,
 		article:nth-child(even) .gallery::after {
 			width: 5vh;
 			height: 5vh;
-			bottom: -5%;
-			right: -5%;
+			bottom: -2rem;
+			right: -2rem;
 		}
 
 		/* Multiple images mobile adjustments */

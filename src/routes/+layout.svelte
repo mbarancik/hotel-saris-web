@@ -39,17 +39,17 @@
 				{#if navItem?.type === 'categoryLink'}
 					<span class="flyout-trigger">
 						<span class="flyout-title">
-							{navItem?.text}
+							{$language === 'sk' ? navItem?.text : navItem?.enText}
 							<span class="material-symbols-outlined"> arrow_drop_down </span>
 						</span>
 						<div class="flyout">
 							{#each navItem?.links || [] as link}
-								<a href="/{link?.page}">{link?.text}</a>
+								<a href="/{link?.page}">{$language === 'sk' ? link?.text : link?.enText}</a>
 							{/each}
 						</div>
 					</span>
 				{:else if navItem?.type === 'pageLink'}
-					<a href="/{navItem?.page}">{navItem?.text}</a>
+					<a href="/{navItem?.page}">{$language === 'sk' ? navItem?.text : navItem?.enText}</a>
 				{/if}
 			{/each}
 
@@ -73,7 +73,22 @@
 </div>
 
 {#if isSidebarOpen}
-	<div class="sidebar-backdrop" in:fade={{ duration: 200 }} out:fade={{ duration: 200 }}>
+	<div
+		class="sidebar-backdrop"
+		in:fade={{ duration: 200 }}
+		out:fade={{ duration: 200 }}
+		role="dialog"
+		tabindex="0"
+		aria-modal="true"
+		onclick={(e) => {
+			if (e.target === e.currentTarget) isSidebarOpen = false;
+		}}
+		onkeydown={(e) => {
+			if (e.key === 'Escape' && e.target === e.currentTarget) {
+				isSidebarOpen = false;
+			}
+		}}
+	>
 		<div class="sidebar" in:fly={{ x: -300, duration: 300 }} out:fly={{ x: -300, duration: 300 }}>
 			<button class="close-sidebar-btn" onclick={() => (isSidebarOpen = false)}>
 				<span class="material-symbols-outlined"> close </span>
@@ -84,14 +99,14 @@
 					{#if navItem?.type === 'categoryLink'}
 						<div class="category">
 							<span class="category-title">
-								{navItem?.text}
+								{$language === 'sk' ? navItem?.text : navItem?.enText}
 							</span>
 							{#each navItem?.links || [] as link}
-								<a href="/{link?.page}">— {link?.text}</a>
+								<a href="/{link?.page}">— {$language === 'sk' ? link?.text : link?.enText}</a>
 							{/each}
 						</div>
 					{:else if navItem?.type === 'pageLink'}
-						<a href="/{navItem?.page}">{navItem?.text}</a>
+						<a href="/{navItem?.page}">{$language === 'sk' ? navItem?.text : navItem?.enText}</a>
 					{/if}
 				{/each}
 

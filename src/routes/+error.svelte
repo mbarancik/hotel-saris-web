@@ -1,48 +1,46 @@
 <script lang="ts">
 	import { page } from '$app/state';
-  import { onMount } from 'svelte';
-  import { afterNavigate } from '$app/navigation';
+	import { onMount } from 'svelte';
+	import { afterNavigate } from '$app/navigation';
 
-  let observer: IntersectionObserver;
+	let observer: IntersectionObserver;
 
-  function setupObserver() {
-    observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('animate');
-          }
-        });
-      },
-      { threshold: 0.2, rootMargin: '0px 0px -50px 0px' }
-    );
+	function setupObserver() {
+		observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('animate');
+					}
+				});
+			},
+			{ threshold: 0.2, rootMargin: '0px 0px -50px 0px' }
+		);
 
-    document
-      .querySelectorAll(
-        '.vertical-l, .horizontal-l, .hero-content-inner, .text-inner, .gallery'
-      )
-      .forEach((el) => observer.observe(el));
-  }
+		document
+			.querySelectorAll('.vertical-l, .horizontal-l, .hero-content-inner, .text-inner, .gallery')
+			.forEach((el) => observer.observe(el));
+	}
 
-  function teardownObserver() {
-    observer?.disconnect();
-  }
+	function teardownObserver() {
+		observer?.disconnect();
+	}
 
-  function resetAnimations() {
-    document.querySelectorAll('.animate').forEach((el) => el.classList.remove('animate'));
-  }
+	function resetAnimations() {
+		document.querySelectorAll('.animate').forEach((el) => el.classList.remove('animate'));
+	}
 
-  onMount(() => {
-    setupObserver();
-    return () => teardownObserver();
-  });
+	onMount(() => {
+		setupObserver();
+		return () => teardownObserver();
+	});
 
-  afterNavigate(() => {
-    // remove old classes, tear down & re-observe new elements
-    resetAnimations();
-    teardownObserver();
-    setupObserver();
-  });
+	afterNavigate(() => {
+		// remove old classes, tear down & re-observe new elements
+		resetAnimations();
+		teardownObserver();
+		setupObserver();
+	});
 </script>
 
 <section class="hero">
@@ -53,13 +51,11 @@
 		</div>
 
 		<div class="hero-content-inner">
-      <h1>
-        {page.status}
-      </h1>
+			<h1>
+				{page.status}
+			</h1>
 			<h2 class="text-2xl">
-				{page.status === 404
-					? "Stránka nebola nájdená"
-					: "Niečo sa pokazilo"}
+				{page.status === 404 ? 'Stránka nebola nájdená' : 'Niečo sa pokazilo'}
 			</h2>
 		</div>
 
@@ -71,7 +67,7 @@
 </section>
 
 <style>
-  .hero {
+	.hero {
 		height: 100vh;
 		overflow: hidden;
 		display: grid;
@@ -119,9 +115,9 @@
 		line-height: 110%;
 	}
 
-  .hero-content-inner h2 {
-    font-size: 1.5rem;
-  }
+	.hero-content-inner h2 {
+		font-size: 1.5rem;
+	}
 
 	.vertical-l {
 		height: 100%;
