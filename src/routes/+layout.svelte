@@ -3,6 +3,7 @@
 	import { language } from '$lib/stores/language';
 	import { onMount } from 'svelte';
 	import { fade, fly } from 'svelte/transition';
+	import { onNavigate } from '$app/navigation';
 
 	let { children, data } = $props();
 
@@ -24,6 +25,10 @@
 		}
 		return url || '#';
 	};
+
+	onNavigate(() => {
+		isSidebarOpen = false;
+	});
 </script>
 
 <div class="desktop-header">
