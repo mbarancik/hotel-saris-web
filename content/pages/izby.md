@@ -63,6 +63,10 @@ content:
         text: Cenník
         enText: Price List
         page: cennik
+      - type: pageButton
+        text: Rezervácia
+        enText: Reservation
+        page: rezervacia
   - title: Dvojlôžková izba
     enTitle: Double Room
     text: |-

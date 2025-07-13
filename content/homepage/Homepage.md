@@ -7,6 +7,10 @@ buttons:
     text: Denné menu
     enText: Today's Menu
     page: denne-menu
+  - type: pageButton
+    text: Rezervácia
+    enText: Reservation
+    page: rezervacia
 content:
   - title: O hoteli
     enTitle: About

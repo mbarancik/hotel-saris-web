@@ -10,6 +10,9 @@ links:
       - text: Cenník
         enText: Price List
         page: cennik
+      - text: Rezervácia
+        enText: Reservation
+        page: rezervacia
   - type: categoryLink
     text: Gastronómia
     enText: Gastronomy

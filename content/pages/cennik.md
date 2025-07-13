@@ -21,6 +21,11 @@ content:
       * City tax 2.50€ per person/night
     gallery:
       - image: /media/Saris_room_02_009.webp
+    buttons:
+      - type: pageButton
+        text: Rezervovať
+        enText: Book Now
+        page: rezervacia
   - title: Izba 1/2
     enTitle: Room 1/2
     text: |-
@@ -39,6 +44,11 @@ content:
       * City tax 2.50€ per person/night
     gallery:
       - image: /media/Saris_room_02_003.webp
+    buttons:
+      - type: pageButton
+        text: Rezervovať
+        enText: Book Now
+        page: rezervacia
   - title: Apartmán
     enTitle: Apartment
     text: |-
@@ -57,6 +67,11 @@ content:
       * City tax 2.50€ per person/night
     gallery:
       - image: /media/Saris_room_03_004.webp
+    buttons:
+      - type: pageButton
+        text: Rezervovať
+        enText: Book Now
+        page: rezervacia
   - title: Rodinná izba
     enTitle: Family Room
     text: |-
@@ -77,4 +92,9 @@ content:
       * City tax 2.50€ per person/night
     gallery:
       - image: /media/Saris_room_01_005.webp
+    buttons:
+      - type: pageButton
+        text: Rezervovať
+        enText: Book Now
+        page: rezervacia
 ---
