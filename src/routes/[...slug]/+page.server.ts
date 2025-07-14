@@ -8,7 +8,8 @@ export async function load({ params }) {
 		const { data } = matter(pageFile);
 
 		return {
-			page: data
+			page: data,
+			slug: params.slug
 		};
 	} catch {
 		throw error(404, 'Page not found');

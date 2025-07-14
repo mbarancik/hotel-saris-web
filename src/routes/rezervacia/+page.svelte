@@ -82,6 +82,15 @@
 
 <svelte:head>
 	<title>{$language === 'sk' ? 'Rezervácia | Hotel Šariš' : 'Reservation | Hotel Šariš'}</title>
+
+	<meta name="description" content="Zarezervujte si svoj pobyt v Hoteli Šariš." />
+	<meta property="og:title" content="Rezervácia | Hotel Šariš" />
+	<meta property="og:description" content="Zarezervujte si svoj pobyt v Hoteli Šariš." />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://hotel-saris-web.pages.dev/rezervacia" />
+	<meta property="og:image" content="/media/favicon.ico" />
+
+	<link rel="canonical" href="https://hotel-saris-web.pages.dev/rezervacia" />
 </svelte:head>
 
 <section class="hero">

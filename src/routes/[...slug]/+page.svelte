@@ -68,6 +68,27 @@
 			? data.page.title + ' | Hotel Šariš'
 			: data.page.enTitle + ' | Hotel Šariš') || 'Hotel Šariš'}</title
 	>
+	<meta
+		name="description"
+		content={data.page.content?.[0]?.text.substring(0, 200) ||
+			data.page.content?.[0]?.enText.substring(0, 200) ||
+			'Hotel Šariš - Hotel v historickom centre Bardejova'}
+	/>
+	<meta
+		property="og:title"
+		content={data.page.title ? data.page.title + ' | Hotel Šariš' : 'Hotel Šariš'}
+	/>
+	<meta
+		property="og:description"
+		content={data.page.content?.[0]?.text.substring(0, 200) ||
+			data.page.content?.[0]?.enText.substring(0, 200) ||
+			'Hotel Šariš - Hotel v historickom centre Bardejova'}
+	/>
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content={'https://hotel-saris-web.pages.dev/' + data.slug || ''} />
+	<meta property="og:image" content={data.page.image || '/media/favicon.ico'} />
+
+	<link rel="canonical" href={'https://hotel-saris-web.pages.dev/' + data.slug || ''} />
 </svelte:head>
 
 {#if lightboxImgUrl}

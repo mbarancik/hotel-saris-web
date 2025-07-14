@@ -64,6 +64,28 @@
 
 <svelte:head>
 	<title>{$language === 'sk' ? 'Domov' : 'Home'} | Hotel Šariš</title>
+
+	<meta
+		name="description"
+		content={data.homepage.content?.[0]?.text.substring(0, 200) ||
+			data.homepage.content?.[0]?.enText.substring(0, 200) ||
+			'Hotel Šariš - Hotel v historickom centre Bardejova'}
+	/>
+	<meta
+		property="og:title"
+		content={data.homepage.title ? data.homepage.title + ' | Hotel Šariš' : 'Hotel Šariš'}
+	/>
+	<meta
+		property="og:description"
+		content={data.homepage.content?.[0]?.text.substring(0, 200) ||
+			data.homepage.content?.[0]?.enText.substring(0, 200) ||
+			'Hotel Šariš - Hotel v historickom centre Bardejova'}
+	/>
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content={'https://hotel-saris-web.pages.dev/'} />
+	<meta property="og:image" content={data.homepage.image || '/media/favicon.ico'} />
+
+	<link rel="canonical" href={'https://hotel-saris-web.pages.dev/'} />
 </svelte:head>
 
 {#if lightboxImgUrl}
